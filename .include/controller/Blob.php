@@ -1,7 +1,7 @@
 <?php
 namespace GitPHP\Controller;
 
-require_once __DIR__ . '/../../lib/syntaxhighlighter/syntaxhighlighter.php';
+require_once __DIR__ . '/../../.include/lib/syntaxhighlighter/syntaxhighlighter.php';
 
 /**
  * Blob controller class
@@ -240,7 +240,7 @@ class Blob extends Base
 
         switch ($this->params['hi']) {
             case 'sexy':
-                include_once('lib/syntaxhighlighter/syntaxhighlighter.php');
+                include_once('.include/lib/syntaxhighlighter/syntaxhighlighter.php');
                 $SH = new \SyntaxHighlighter($blob->GetName());
                 $this->tpl->assign('sexy', 1);
                 $this->tpl->assign('extracss_files', $SH->getCssList());

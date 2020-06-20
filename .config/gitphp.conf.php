@@ -4,7 +4,7 @@ return array(
      * projectroot
      * Full directory on server where projects are located
      */
-    GitPHP\Config::PROJECT_ROOT            => '/local/codeisok/repositories/',
+    GitPHP\Config::PROJECT_ROOT            => '/local/codeisok/storage/repositories/',
     GitPHP\Config::DB_HOST                 => 'localhost',
     GitPHP\Config::DB_USER                 => 'root',
     GitPHP\Config::DB_PASSWORD             => 'root',

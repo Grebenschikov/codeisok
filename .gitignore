@@ -1,7 +1,6 @@
 .idea
 .DS_Store
 .unrealsync
-repositories/*
 .setup/storage/*
 php_errors.log
 update_cache.lock

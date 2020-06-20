@@ -573,7 +573,7 @@ class FileDiff
 
     public function GetLargeDiffSize()
     {
-        return \GitPHP\Config::GetInstance()->GetValue(\GitPHP\Config::LARGE_DIFF_SIZE, self::LARGE_DIFF_SIZE);
+        return \CodeIsOk\Config::GetInstance()->GetValue(\CodeIsOk\Config::LARGE_DIFF_SIZE, self::LARGE_DIFF_SIZE);
     }
 
     /**
@@ -927,9 +927,9 @@ class FileDiff
             ' 2>&1',
         );
         $cmd = implode(' ', $cmd);
-        \GitPHP\Log::GetInstance()->timerStart();
+        \CodeIsOk\Log::GetInstance()->timerStart();
         exec($cmd, $out, $ret);
-        \GitPHP\Log::GetInstance()->timerStop('exec', $cmd . "\n\n" . implode("\n", $out) . ' ret:' . $ret);
+        \CodeIsOk\Log::GetInstance()->timerStop('exec', $cmd . "\n\n" . implode("\n", $out) . ' ret:' . $ret);
 
         $this->diffData = \CodeIsOk\Git\DiffExe::Diff(
             (empty($fromTmpFile) ? null : ($tmpdir->GetDir() . $fromTmpFile)),

@@ -25,14 +25,6 @@
  {include file='path.tpl' pathobject=$blob target='blob'}
 
  <div class="page_body">
-   {if $geshi}
-     {$geshihead}
-       <td class="ln de1" id="blameData">
-        {include file='blamedata.tpl'}
-       </td>
-     {$geshibody}
-     {$geshifoot}
-   {else}
  	<table class="code">
 	{foreach from=$blob->GetData(true) item=blobline name=blob}
 	  {assign var=blamecommit value=$blame[$smarty.foreach.blob.iteration]}
@@ -55,7 +47,6 @@
 	  </tr>
 	{/foreach}
 	</table>
-  {/if}
  </div>
 
  {include file='footer.tpl'}

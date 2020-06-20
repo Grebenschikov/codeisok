@@ -126,7 +126,7 @@ class TmpDir
      */
     public function __construct()
     {
-        $this->dir = \CodeIsOk\Util::AddSlash(\GitPHP\Config::GetInstance()->GetValue('gittmp'));
+        $this->dir = \CodeIsOk\Util::AddSlash(\CodeIsOk\Config::GetInstance()->GetValue('gittmp'));
 
         if (empty($this->dir)) {
             $this->dir = \CodeIsOk\Git\TmpDir::SystemTmpDir();

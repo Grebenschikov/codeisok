@@ -7,7 +7,7 @@ class Gitosis
 
     public function __construct()
     {
-        $this->db = \GitPHP\Db::getInstance();
+        $this->db = \CodeIsOk\Db::getInstance();
     }
 
     /* User */

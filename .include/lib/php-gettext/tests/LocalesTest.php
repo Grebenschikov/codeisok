@@ -62,5 +62,3 @@ class LocaleTest extends PHPUnit_Framework_TestCase
                         get_list_of_locales(""));
   }
 }
-
-?>

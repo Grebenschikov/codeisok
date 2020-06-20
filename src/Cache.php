@@ -65,7 +65,7 @@ class Cache
 	 */
 	public function __construct()
 	{
-		if (\GitPHP\Config::GetInstance()->GetValue('objectcache', false)) {
+		if (\CodeIsOk\Config::GetInstance()->GetValue('objectcache', false)) {
             $this->SetEnabled(true);
         }
 	}
@@ -226,9 +226,9 @@ class Cache
 
 		$this->tpl->caching = 2;
 
-		$this->tpl->cache_lifetime = \GitPHP\Config::GetInstance()->GetValue('objectcachelifetime', 86400);
+		$this->tpl->cache_lifetime = \CodeIsOk\Config::GetInstance()->GetValue('objectcachelifetime', 86400);
 
-		$servers = \GitPHP\Config::GetInstance()->GetValue('memcache', null);
+		$servers = \CodeIsOk\Config::GetInstance()->GetValue('memcache', null);
 		if (isset($servers) && is_array($servers) && (count($servers) > 0)) {
 			\CodeIsOk\Memcache::GetInstance()->AddServers($servers);
 			$this->tpl->cache_handler_func = 'memcache_cache_handler';

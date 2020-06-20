@@ -10,8 +10,8 @@ class Gitosis
     public static function getAuthorizedKeysFile()
     {
         if (!isset(self::$key_file_location)) {
-            $key_file = \GitPHP\Config::GetInstance()->GetValue(self::CONFIG_AUTHORIZED_KEYS_FILE, '.ssh/authorized_keys');
-            self::$key_file_location = \GitPHP\Config::GIT_HOME . $key_file;
+            $key_file = \CodeIsOk\Config::GetInstance()->GetValue(self::CONFIG_AUTHORIZED_KEYS_FILE, '.ssh/authorized_keys');
+            self::$key_file_location = \CodeIsOk\Config::GIT_HOME . $key_file;
         }
         return self::$key_file_location;
     }

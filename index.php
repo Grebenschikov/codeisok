@@ -7,19 +7,19 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 define('DO_NOT_USE_ERROR_HANDLER', 1);
 
-$Application = new \GitPHP\Application();
+$Application = new \CodeIsOk\Application();
 
-\GitPHP\Log::GetInstance()->timerStart();
+\CodeIsOk\Log::GetInstance()->timerStart();
 $Application->init();
-\GitPHP\Log::GetInstance()->timerStop('GitPHP\Application::init()', 1);
+\CodeIsOk\Log::GetInstance()->timerStop('CodeIsOk\Application::init()', 1);
 
-\GitPHP\Log::GetInstance()->timerStart();
+\CodeIsOk\Log::GetInstance()->timerStart();
 $Application->run();
-\GitPHP\Log::GetInstance()->timerStop('GitPHP\Application::run()', 1);
+\CodeIsOk\Log::GetInstance()->timerStop('CodeIsOk\Application::run()', 1);
 
-\GitPHP\Log::GetInstance()->Log('debug', \GitPHP\Config::GetInstance()->GetValue('debug', false));
+\CodeIsOk\Log::GetInstance()->Log('debug', \CodeIsOk\Config::GetInstance()->GetValue('debug', false));
 
 /* StatSlow ;) */
-\GitPHP\Log::GetInstance()->printHtmlHeader();
-\GitPHP\Log::GetInstance()->printHtml();
-\GitPHP\Log::GetInstance()->printHtmlFooter();
+\CodeIsOk\Log::GetInstance()->printHtmlHeader();
+\CodeIsOk\Log::GetInstance()->printHtml();
+\CodeIsOk\Log::GetInstance()->printHtmlFooter();

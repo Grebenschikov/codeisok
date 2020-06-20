@@ -219,7 +219,7 @@ class Project
     public function __construct($project)
     {
         $User = \CodeIsOk\Session::instance()->getUser();
-        $Acl = \GitPHP\Acl::getInstance();
+        $Acl = \CodeIsOk\Acl::getInstance();
         if (!$Acl->isProjectAllowed($project, $User)) {
             throw new \Exception();
         }
@@ -236,7 +236,7 @@ class Project
      */
     private function SetProject($project)
     {
-        $projectRoot = \CodeIsOk\Util::AddSlash(\GitPHP\Config::GetInstance()->GetValue(\GitPHP\Config::PROJECT_ROOT));
+        $projectRoot = \CodeIsOk\Util::AddSlash(\CodeIsOk\Config::GetInstance()->GetValue(\CodeIsOk\Config::PROJECT_ROOT));
 
         $realProjectRoot = realpath($projectRoot);
         $path = $projectRoot . $project;
@@ -271,7 +271,7 @@ class Project
      */
     public function isActionAllowed($action, $User = null)
     {
-        return \GitPHP\Acl::getInstance()->isActionAllowed($this, $action, $User);
+        return \CodeIsOk\Acl::getInstance()->isActionAllowed($this, $action, $User);
     }
 
     /**
@@ -366,7 +366,7 @@ class Project
      */
     public function GetPath()
     {
-        $projectRoot = \CodeIsOk\Util::AddSlash(\GitPHP\Config::GetInstance()->GetValue(\GitPHP\Config::PROJECT_ROOT));
+        $projectRoot = \CodeIsOk\Util::AddSlash(\CodeIsOk\Config::GetInstance()->GetValue(\CodeIsOk\Config::PROJECT_ROOT));
 
         return $projectRoot . $this->project;
     }
@@ -385,7 +385,7 @@ class Project
         if (!$this->readDescription) {
             $this->description = @file_get_contents($this->GetPath() . '/description');
             if ($this->description === false) {
-                \GitPHP\Log::GetInstance()->Log('Could not get description for project ' . $this->project);
+                \CodeIsOk\Log::GetInstance()->Log('Could not get description for project ' . $this->project);
             }
         }
 
@@ -461,7 +461,7 @@ class Project
     {
         if ($this->cloneUrl !== null) return $this->cloneUrl;
 
-        $cloneurl = \CodeIsOk\Util::AddSlash(\GitPHP\Config::GetInstance()->GetValue('cloneurl', ''), false);
+        $cloneurl = \CodeIsOk\Util::AddSlash(\CodeIsOk\Config::GetInstance()->GetValue('cloneurl', ''), false);
         if (!empty($cloneurl)) $cloneurl .= $this->project;
 
         return $cloneurl;
@@ -492,7 +492,7 @@ class Project
     {
         if ($this->pushUrl !== null) return $this->pushUrl;
 
-        $pushurl = \CodeIsOk\Util::AddSlash(\GitPHP\Config::GetInstance()->GetValue('pushurl', ''), false);
+        $pushurl = \CodeIsOk\Util::AddSlash(\CodeIsOk\Config::GetInstance()->GetValue('pushurl', ''), false);
         if (!empty($pushurl)) $pushurl .= $this->project;
 
         return $pushurl;
@@ -523,7 +523,7 @@ class Project
     {
         if ($this->bugUrl != null) return $this->bugUrl;
 
-        return \GitPHP\Config::GetInstance()->GetValue('bugurl', '');
+        return \CodeIsOk\Config::GetInstance()->GetValue('bugurl', '');
     }
 
     /**
@@ -551,7 +551,7 @@ class Project
     {
         if ($this->bugPattern != null) return $this->bugPattern;
 
-        return \GitPHP\Config::GetInstance()->GetValue('bugpattern', '');
+        return \CodeIsOk\Config::GetInstance()->GetValue('bugpattern', '');
     }
 
     /**
@@ -1579,7 +1579,7 @@ class Project
     public function GetBaseBranches($branch)
     {
         $main_branches = array_filter(
-            \GitPHP\Config::GetInstance()->GetBaseBranchesByCategory($this->GetCategory()),
+            \CodeIsOk\Config::GetInstance()->GetBaseBranchesByCategory($this->GetCategory()),
             function ($branch_name) { return $this->GetHead($branch_name)->Exists(); }
         );
 
@@ -1587,7 +1587,7 @@ class Project
             $main_branches[] = $this->GetDefaultBranch();
         }
 
-        $build_branch_pattern = \GitPHP\Config::GetInstance()->GetValue(\GitPHP\Config::BUILD_BRANCH_PATTERN, '');
+        $build_branch_pattern = \CodeIsOk\Config::GetInstance()->GetValue(\CodeIsOk\Config::BUILD_BRANCH_PATTERN, '');
         if ($build_branch_pattern && is_string($build_branch_pattern) && preg_match($build_branch_pattern, $branch)) {
             // 'build' branch can contain a lot of other branches inside
             // and it's not a good idea to search for branches with common commits for them
@@ -1650,7 +1650,7 @@ class Project
      * In this case there will be only default bases in the list because it's hard
      * to search for unmerged commits on big repository in runtime
      *
-     * @see \GitPHP\Config::GetBaseBranchesByCategory()
+     * @see \CodeIsOk\Config::GetBaseBranchesByCategory()
      *
      * @return array|mixed
      */
@@ -1723,7 +1723,7 @@ class Project
     public function UpdateHeadsCache()
     {
         $old_branches = [];
-        $DB = \GitPHP\Db::getInstance();
+        $DB = \CodeIsOk\Db::getInstance();
         if (!isset($DB)) {
             return;
         }

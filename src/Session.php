@@ -101,7 +101,7 @@ class Session
     {
         $this->User = \CodeIsOk\User::fromAuthData($this->get(self::SESSION_AUTH_DATA));
         if ($this->User->getId()) {
-            $Acl = new \GitPHP\Acl(\GitPHP\Jira::instance(), \GitPHP\Redmine::instance());
+            $Acl = new \CodeIsOk\Acl(\CodeIsOk\Jira::instance(), \CodeIsOk\Redmine::instance());
             $this->User->setIsGitosisAdmin($Acl->isGitosisAdmin($this->User));
         }
 
@@ -111,7 +111,7 @@ class Session
                 return;
             }
 
-            $user_data = \GitPHP\Config::GetInstance()->GetUserDataByApiToken($auth_token);
+            $user_data = \CodeIsOk\Config::GetInstance()->GetUserDataByApiToken($auth_token);
             if (empty($user_data)) {
                 return;
             }

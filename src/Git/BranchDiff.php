@@ -117,7 +117,7 @@ class BranchDiff implements \Iterator
 
             /* if merge-base commit message contains reference to something similiar to branch ticket
              then this is not final base hash and use scanning algo */
-            \GitPHP\Log::GetInstance()->Log(__METHOD__, $ticket);
+            \CodeIsOk\Log::GetInstance()->Log(__METHOD__, $ticket);
             if (stripos($diff_base_message, $ticket) === false) return $diff_base_hash;
         }
 
@@ -187,7 +187,7 @@ class BranchDiff implements \Iterator
         $args[] = $this->fromHash;
         $args[] = $this->toHash;
 
-        $hide_files_per_category = \GitPHP\Config::GetInstance()->GetValue(\GitPHP\Config::HIDE_FILES_PER_CATEGORY, []);
+        $hide_files_per_category = \CodeIsOk\Config::GetInstance()->GetValue(\CodeIsOk\Config::HIDE_FILES_PER_CATEGORY, []);
         $diffBranchLines = explode("\n", $this->exe->Execute(GIT_DIFF_TREE, $args));
         foreach ($diffBranchLines as $line) {
             $trimmed = trim($line);

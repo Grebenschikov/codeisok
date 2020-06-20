@@ -39,9 +39,6 @@
      <div>
        <img src="data:{$mime};base64,{$data}" />
      </div>
-   {elseif $geshi}
-     {* We're using the highlighted output from geshi *}
-     {$geshiout}
    {elseif $sexy}
        <table class="code" id="blobData">
        <tbody>

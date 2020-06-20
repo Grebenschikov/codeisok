@@ -122,5 +122,3 @@ function smarty_block_t($params, $text, &$smarty)
 	
 	return $text;
 }
-
-?>

@@ -246,7 +246,7 @@ class Blob extends \CodeIsOk\Git\FilesystemObject
 
         $mime = '';
 
-        $magicdb = \GitPHP\Config::GetInstance()->GetValue('magicdb', null);
+        $magicdb = \CodeIsOk\Config::GetInstance()->GetValue('magicdb', null);
         if (empty($magicdb)) {
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
                 $magicdb = 'C:\\wamp\\php\\extras\\magic';

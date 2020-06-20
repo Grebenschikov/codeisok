@@ -59,5 +59,3 @@ function smarty_modifier_highlight($haystack, $needle, $trimlen = NULL, $escape 
 
 	return $haystack;
 }
-
-?>

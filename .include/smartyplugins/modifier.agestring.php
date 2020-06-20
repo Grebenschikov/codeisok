@@ -58,5 +58,3 @@ function smarty_modifier_agestring($age)
 
 	return __('right now');
 }
-
-?>

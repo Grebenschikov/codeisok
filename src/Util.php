@@ -33,13 +33,13 @@ class Util
         $to = [$from];
 
         $tracker_link = '';
-        $ticket_key = \GitPHP\Tracker::instance()->parseTicketFromString($review_name);
+        $ticket_key = \CodeIsOk\Tracker::instance()->parseTicketFromString($review_name);
         if (!empty($ticket_key)) {
-            $ticket_summary = \GitPHP\Tracker::instance()->getTicketSummary($ticket_key);
+            $ticket_summary = \CodeIsOk\Tracker::instance()->getTicketSummary($ticket_key);
             $review_name .= ' - ' . $ticket_summary;
-            $tracker_link = "(<a href=\"" . \GitPHP\Tracker::instance()->getTicketUrl($ticket_key) . "\">"
+            $tracker_link = "(<a href=\"" . \CodeIsOk\Tracker::instance()->getTicketUrl($ticket_key) . "\">"
                 . htmlspecialchars($review_name) . "</a>)";
-            $developer_email = \GitPHP\Tracker::instance()->getTicketDeveloperEmail($ticket_key);
+            $developer_email = \CodeIsOk\Tracker::instance()->getTicketDeveloperEmail($ticket_key);
             if (!empty($developer_email)) {
                 $to[] = $developer_email;
             }
@@ -55,17 +55,17 @@ class Util
         $comments_authors = $changes_authors = [];
         $diff = self::insertCommentsToDiffs($comments, 'html', $comments_authors, $changes_authors, $review_type);
 
-        if (\GitPHP\Tracker::instance()->enabled()) {
+        if (\CodeIsOk\Tracker::instance()->enabled()) {
             $comments_authors = array_unique($comments_authors);
             foreach ($comments_authors as $comment_author) {
-                $author_email = \GitPHP\Tracker::instance()->getUserEmail($comment_author);
+                $author_email = \CodeIsOk\Tracker::instance()->getUserEmail($comment_author);
                 if (!empty($author_email)) {
                     $to[] = $author_email;
                 }
             }
         }
         $to = array_unique($to);
-        $ignored_emails = \GitPHP\Config::GetInstance()->GetValue(\GitPHP\Config::IGNORED_EMAIL_ADDRESSES, []);
+        $ignored_emails = \CodeIsOk\Config::GetInstance()->GetValue(\CodeIsOk\Config::IGNORED_EMAIL_ADDRESSES, []);
         $to = array_filter($to, function ($address) use ($ignored_emails) { return !in_array($address, $ignored_emails); });
 
         $subject = "[CODEISOK] ($review_name) Comment from $from";
@@ -98,17 +98,17 @@ class Util
 
     public static function addReviewToTracker($author_id, $review_name, $url, $comments, $review_type = 'unified')
     {
-        $ticket_key = \GitPHP\Tracker::instance()->parseTicketFromString($review_name);
+        $ticket_key = \CodeIsOk\Tracker::instance()->parseTicketFromString($review_name);
         if (!empty($ticket_key)) {
             $comments_authors = $changes_authors = [];
-            $format = \GitPHP\Tracker::instance()->getCommentsFormat();
+            $format = \CodeIsOk\Tracker::instance()->getCommentsFormat();
             $diff = self::insertCommentsToDiffs($comments, $format, $comments_authors, $changes_authors, $review_type);
             $comment = "";
-            if (\GitPHP\Tracker::instance()->getTrackerType() == \GitPHP\Tracker::TRACKER_TYPE_JIRA) {
+            if (\CodeIsOk\Tracker::instance()->getTrackerType() == \CodeIsOk\Tracker::TRACKER_TYPE_JIRA) {
                 $diff = htmlspecialchars_decode(strip_tags($diff));
                 $comment = "Review from $author_id: \n$url\n" . str_replace('{code}{code}', '', "{code}$diff{code}");
                 $comment = str_replace("{quote}{code}\n{code}{quote}", '{quote}{quote} ⤷ ', $comment);
-            } elseif (\GitPHP\Tracker::instance()->getTrackerType() == \GitPHP\Tracker::TRACKER_TYPE_REDMINE) {
+            } elseif (\CodeIsOk\Tracker::instance()->getTrackerType() == \CodeIsOk\Tracker::TRACKER_TYPE_REDMINE) {
                 $diff = htmlspecialchars_decode($diff);
                 $comment = "Review from *$author_id*: \n$url\n" . str_replace("<pre>\n</pre>\n", "", "<pre>$diff</pre>");
                 $comment = str_replace("_\n>*", "_\n>⤷ *", $comment);
@@ -118,7 +118,7 @@ class Util
                 return;
             }
             try {
-                \GitPHP\Tracker::instance()->addComment($ticket_key, $comment);
+                \CodeIsOk\Tracker::instance()->addComment($ticket_key, $comment);
             } catch (\Exception $e) {
                 trigger_error($e);
             }
@@ -181,7 +181,7 @@ class Util
 
         $changes_authors = array_unique($changes_authors);
         foreach ($changes_authors as $idx => $author) {
-            foreach (\GitPHP\Config::GetInstance()->GetValue(\GitPHP\Config::COLLECT_CHANGES_AUTHORS_SKIP, []) as $skip_author) {
+            foreach (\CodeIsOk\Config::GetInstance()->GetValue(\CodeIsOk\Config::COLLECT_CHANGES_AUTHORS_SKIP, []) as $skip_author) {
                 if (strpos($author, $skip_author) !== false) unset($changes_authors[$idx]);
             }
         }
@@ -196,7 +196,7 @@ class Util
             list($hash_head, $hash_base) = explode('-', $hash);
             if (empty($hash_base)) {
                 $diffs[$hash] = new \CodeIsOk\Git\TreeDiff($Project, $hash_head, '', $DiffContext);
-                if (\GitPHP\Config::GetInstance()->GetValue(\GitPHP\Config::COLLECT_CHANGES_AUTHORS, false)) {
+                if (\CodeIsOk\Config::GetInstance()->GetValue(\CodeIsOk\Config::COLLECT_CHANGES_AUTHORS, false)) {
                     $changes_authors[] = $Project->GetCommit($hash_head)->GetAuthor();
                 }
             } else if ($hash_base == 'blob') {
@@ -204,7 +204,7 @@ class Util
             } else {
                 $diffs[$hash] = new \CodeIsOk\Git\BranchDiff($Project, $hash_head, $hash_base, $DiffContext);
 
-                if (\GitPHP\Config::GetInstance()->GetValue(\GitPHP\Config::COLLECT_CHANGES_AUTHORS, false)) {
+                if (\CodeIsOk\Config::GetInstance()->GetValue(\CodeIsOk\Config::COLLECT_CHANGES_AUTHORS, false)) {
                     $log = $Project->GetLog($hash_head, 50, 0, $hash_base);
                     if (is_array($log)) {
                         foreach ($log as $commit) {
@@ -301,7 +301,7 @@ class Util
             $result['TOP_COMMENT'][] = [
                 'date' => self::formatDate(strtotime($comment['date'])),
                 'author' => $comment['author'],
-                'comment' => $comment['text'] /* already escaped, see \GitPHP\Db::addComment */,
+                'comment' => $comment['text'] /* already escaped, see \CodeIsOk\Db::addComment */,
             ];
         }
 
@@ -344,8 +344,8 @@ class Util
                 foreach ($commentLines[$i] as $commentId) {
                     $current_line['COMMENT'][] = [
                         'date' => self::formatDate(strtotime($comments[$commentId]['date'])),
-                        'author' => $comments[$commentId]['author']/* already escaped, see \GitPHP\Db::addComment */,
-                        'comment' => $comments[$commentId]['text']/* already escaped, see \GitPHP\Db::addComment */,
+                        'author' => $comments[$commentId]['author']/* already escaped, see \CodeIsOk\Db::addComment */,
+                        'comment' => $comments[$commentId]['text']/* already escaped, see \CodeIsOk\Db::addComment */,
                     ];
                 }
             }
@@ -376,14 +376,14 @@ class Util
         if ($snapshot['hash_base'] == 'blob') {
             $params['h'] = $snapshot['hash_head'];
             $params['f'] = $file;
-            $url = \GitPHP\Application::getUrl('blob', $params);
+            $url = \CodeIsOk\Application::getUrl('blob', $params);
         } else if ($snapshot['hash_base']) {
             $params['branch'] = $snapshot['hash_head'];
             $params['base'] = $snapshot['hash_base'];
-            $url = \GitPHP\Application::getUrl('branchdiff', $params);
+            $url = \CodeIsOk\Application::getUrl('branchdiff', $params);
         } else {
             $params['h'] = $snapshot['hash_head'];
-            $url = \GitPHP\Application::getUrl('commitdiff', $params);
+            $url = \CodeIsOk\Application::getUrl('commitdiff', $params);
         }
         return $url;
     }

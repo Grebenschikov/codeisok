@@ -19,8 +19,8 @@
  */
 function smarty_function_scripturl($params, &$smarty)
 {
-	if (\GitPHP\Config::GetInstance()->HasKey('self')) {
-		$selfurl = \GitPHP\Config::GetInstance()->GetValue('self');
+	if (\CodeIsOk\Config::GetInstance()->HasKey('self')) {
+		$selfurl = \CodeIsOk\Config::GetInstance()->GetValue('self');
 		if (!empty($selfurl)) {
 			if (substr($selfurl, -4) != '.php') {
 				$selfurl = \CodeIsOk\Util::AddSlash($selfurl);
@@ -38,5 +38,3 @@ function smarty_function_scripturl($params, &$smarty)
 
 	return $scriptstr;
 }
-
-?>

@@ -7,8 +7,7 @@
     "require": {},
     "autoload": {
     	"psr-4": {
-          "CodeIsOk\\": "src/",
-          "GitPHP\\": ".include/"
+          "CodeIsOk\\": "src/"
         },
         "files": [
             "src/helpers.php"

@@ -33,7 +33,7 @@ class SSH_Serve
                 if (!empty($cmd) && !empty($arg) && (in_array($cmd, self::COMMANDS_WRITE) || in_array($cmd, self::COMMANDS_READONLY))) {
                     $this->full_path = $this->repository = $m['path'];
 
-                    $project_root = \GitPHP\Config::GetInstance()->getValue(\GitPHP\Config::PROJECT_ROOT);
+                    $project_root = \CodeIsOk\Config::GetInstance()->getValue(\CodeIsOk\Config::PROJECT_ROOT);
 
                     if (strpos($this->full_path, $project_root) === false) {
                         $this->full_path = $project_root . $this->full_path;
@@ -109,9 +109,9 @@ class SSH_Serve
     protected function getUserGlobalAccessMode(\CodeIsOk\Model\Gitosis $Gitosis, $username)
     {
         $user = $Gitosis->getUserByUsername($username);
-        if ($user['access_mode'] == \GitPHP\Controller\GitosisUsers::ACCESS_MODE_ALLOW_ALL) {
+        if ($user['access_mode'] == \CodeIsOk\Controller\GitosisUsers::ACCESS_MODE_ALLOW_ALL) {
             return 'writable';
-        } else if ($user['access_mode'] == \GitPHP\Controller\GitosisUsers::ACCESS_MODE_ALLOW_ALL_RO) {
+        } else if ($user['access_mode'] == \CodeIsOk\Controller\GitosisUsers::ACCESS_MODE_ALLOW_ALL_RO) {
             return 'readonly';
         } else {
             return false;
@@ -125,7 +125,7 @@ class SSH_Serve
     }
 }
 
-$Application = new GitPHP\Application();
+$Application = new CodeIsOk\Application();
 $Application->init();
 
 $Serve = new SSH_Serve();

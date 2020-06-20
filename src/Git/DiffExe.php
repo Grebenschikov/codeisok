@@ -59,7 +59,7 @@ class DiffExe
      */
     public function __construct()
     {
-        $this->binary = \GitPHP\Config::GetInstance()->GetValue('diffbin');
+        $this->binary = \CodeIsOk\Config::GetInstance()->GetValue('diffbin');
         if (empty($this->binary)) {
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
                 $this->binary = 'C:\\Progra~1\\Git\\bin\\diff.exe';
@@ -194,9 +194,9 @@ class DiffExe
         $args[] = $toFile;
 
         $command = $this->binary . ' ' . implode(' ', $args);
-        \GitPHP\Log::GetInstance()->timerStart();
+        \CodeIsOk\Log::GetInstance()->timerStart();
         $result = shell_exec($command);
-        \GitPHP\Log::GetInstance()->timerStop('exec', "$command\n\n$result");
+        \CodeIsOk\Log::GetInstance()->timerStop('exec', "$command\n\n$result");
         return $result;
     }
 
@@ -234,7 +234,7 @@ class DiffExe
      */
     public static function Diff($fromFile = null, $fromName = null, $toFile = null, $toName = null, $context = true, $ignoreWhitespace = false)
     {
-        \GitPHP\Log::GetInstance()->Log(__METHOD__, var_export(func_get_args(), true));
+        \CodeIsOk\Log::GetInstance()->Log(__METHOD__, var_export(func_get_args(), true));
         $obj = new \CodeIsOk\Git\DiffExe();
         $obj->SetUnified($context);
         $obj->setIgnoreWhitespace($ignoreWhitespace);

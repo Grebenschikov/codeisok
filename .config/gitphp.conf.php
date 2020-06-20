@@ -4,25 +4,25 @@ return array(
      * projectroot
      * Full directory on server where projects are located
      */
-    GitPHP\Config::PROJECT_ROOT            => '/local/codeisok/storage/repositories/',
-    GitPHP\Config::DB_HOST                 => 'localhost',
-    GitPHP\Config::DB_USER                 => 'root',
-    GitPHP\Config::DB_PASSWORD             => 'root',
-    GitPHP\Config::DB_NAME                 => 'gitphp',
-    GitPHP\Config::ACCESS_GROUP            => 'developers',
-    GitPHP\Config::CHECK_ACCESS_GROUP      => false,
-    GitPHP\Config::GIT_USER                => 'git',
-    GitPHP\Config::GIT_HOME                => '/home/git/',
+    CodeIsOk\Config::PROJECT_ROOT            => '/local/codeisok/storage/repositories/',
+    CodeIsOk\Config::DB_HOST                 => 'localhost',
+    CodeIsOk\Config::DB_USER                 => 'root',
+    CodeIsOk\Config::DB_PASSWORD             => 'root',
+    CodeIsOk\Config::DB_NAME                 => 'gitphp',
+    CodeIsOk\Config::ACCESS_GROUP            => 'developers',
+    CodeIsOk\Config::CHECK_ACCESS_GROUP      => false,
+    CodeIsOk\Config::GIT_USER                => 'git',
+    CodeIsOk\Config::GIT_HOME                => '/home/git/',
 
     /*
      * Authentication method to use. See \CodeIsOk\Git\Config::AUTH_METHOD_* constants to get list of supported methods
      */
-    GitPHP\Config::AUTH_METHOD             => GitPHP\Config::AUTH_METHOD_CONFIG,
+    CodeIsOk\Config::AUTH_METHOD             => CodeIsOk\Config::AUTH_METHOD_CONFIG,
 
     /*
      * Credentials for AUTH_METHOD_CONFIG auth method
      */
-     GitPHP\Config::CONFIG_AUTH_USER => [
+     CodeIsOk\Config::CONFIG_AUTH_USER => [
          'user' => ['name' => 'user', 'password' => 'password', 'admin' => true]
      ],
 
@@ -53,28 +53,28 @@ return array(
      *  - identify issues
      *  - post review in comments
      *  - find issue developers to send them review
-     * See \CodeIsOk\Git\Config::TRACKER_TYPE_* or \GitPHP\Tracker::TRACKER_TYPE_* constants
+     * See \CodeIsOk\Git\Config::TRACKER_TYPE_* or \CodeIsOk\Tracker::TRACKER_TYPE_* constants
      * to get list of supported trackers
      */
-    GitPHP\Config::TRACKER_TYPE => '',
+    CodeIsOk\Config::TRACKER_TYPE => '',
 
     /*
      * ignored emails
      * Skip this emails when sending review notifications. May be useful to prevent spam in some cases
      */
-    GitPHP\Config::IGNORED_EMAIL_ADDRESSES => [],
+    CodeIsOk\Config::IGNORED_EMAIL_ADDRESSES => [],
 
     /*
      * allow all users to create repositories from page with repositories list
      */
-    GitPHP\Config::ALLOW_USER_CREATE_REPOS => true,
+    CodeIsOk\Config::ALLOW_USER_CREATE_REPOS => true,
 
     /*
      * if we can update .ssh/authorized_keys file right from web context
      * It might be insecure in some cases but much faster/easier.
      * If you set this to false you'll need to include update_auth_keys.php script in crontab under proper user.
      */
-    GitPHP\Config::UPDATE_AUTH_KEYS_FROM_WEB => true,
+    CodeIsOk\Config::UPDATE_AUTH_KEYS_FROM_WEB => true,
 
     //'debug' => true,
     /*
@@ -202,13 +202,6 @@ return array(
      * (bzip defaults to 4, gzip defaults to -1)
      */
     //'compresslevel' => 9,
-
-    /*
-     * geshi
-     * Run blob output through geshi syntax highlighting
-     * and line numbering
-     */
-    //'geshi' => true,
 
     /*
      * search
@@ -361,14 +354,5 @@ return array(
      * like /usr/share/php/Smarty.class.php, /usr/lib/php/Smarty.class.php, etc.
      */
     //'smarty_prefix' => 'lib/smarty/libs/',
-
-    /*
-     * geshiroot
-     * Directory where geshi is installed, only applies if geshi is enabled
-     * NOTE: this is the path to the base geshi.php file to include,
-     * NOT the various other geshi php source files!
-     * Leave blank if geshi.php is in the gitphp root
-     */
-    //'geshiroot' => 'lib/geshi/',
 );
 

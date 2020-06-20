@@ -32,7 +32,7 @@ if (!flock($fp, LOCK_EX | LOCK_NB)) {
     exit(0);
 }
 
-$Application = new GitPHP\Application();
+$Application = new CodeIsOk\Application();
 $Application->init();
 
 $Script = new UpdateCache();

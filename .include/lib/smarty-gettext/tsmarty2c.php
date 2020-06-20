@@ -120,5 +120,3 @@ for ($ac=1; $ac < $_SERVER['argc']; $ac++) {
 		do_file($_SERVER['argv'][$ac]);
 	}
 }
-
-?>

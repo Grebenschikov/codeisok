@@ -9,11 +9,11 @@ class CountClass
     {
         $this->name = $name;
         $this->value = $value;
-        \GitPHP\Log::GetInstance()->timerStart();
+        \CodeIsOk\Log::GetInstance()->timerStart();
     }
 
     public function __destruct()
     {
-        \GitPHP\Log::GetInstance()->timerStop($this->name, $this->value);
+        \CodeIsOk\Log::GetInstance()->timerStop($this->name, $this->value);
     }
 }

@@ -67,7 +67,7 @@ class UpdateAuthKeys
     {
         $this->log("Creating new repositories...");
 
-        $root_directory = GitPHP\Config::GetInstance()->GetValue(GitPHP\Config::PROJECT_ROOT);
+        $root_directory = CodeIsOk\Config::GetInstance()->GetValue(CodeIsOk\Config::PROJECT_ROOT);
         foreach ($repositories as $repository) {
             $full_path = $root_directory . '/' . $repository['project'];
             if (is_dir($full_path)) {
@@ -84,7 +84,7 @@ class UpdateAuthKeys
     }
 }
 
-$Application = new GitPHP\Application();
+$Application = new CodeIsOk\Application();
 $Application->init();
 
 $Script = new UpdateAuthKeys();

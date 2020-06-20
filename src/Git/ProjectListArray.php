@@ -69,7 +69,7 @@ class ProjectListArray extends \CodeIsOk\Git\ProjectListBase
                     }
                 }
             } catch (\Exception $e) {
-                \GitPHP\Log::GetInstance()->Log(__METHOD__, $e->__toString());
+                \CodeIsOk\Log::GetInstance()->Log(__METHOD__, $e->__toString());
             }
         }
     }

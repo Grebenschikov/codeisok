@@ -81,7 +81,7 @@ class ProjectListDirectory extends \CodeIsOk\Git\ProjectListBase
                         try {
                             $proj = new \CodeIsOk\Git\Project($projectPath);
                             $proj->SetCategory(trim(substr($dir, strlen($this->projectDir)), '/'));
-                            if ((!\GitPHP\Config::GetInstance()->GetValue('exportedonly', false)) || $proj->GetDaemonEnabled()) {
+                            if ((!\CodeIsOk\Config::GetInstance()->GetValue('exportedonly', false)) || $proj->GetDaemonEnabled()) {
                                 $this->projects[$projectPath] = $proj;
                             }
                         } catch (\Exception $e) {}
@@ -92,7 +92,7 @@ class ProjectListDirectory extends \CodeIsOk\Git\ProjectListBase
             }
             closedir($dh);
         } else {
-            \GitPHP\Log::GetInstance()->log('Could not open repository directory ' . $dir);
+            \CodeIsOk\Log::GetInstance()->log('Could not open repository directory ' . $dir);
         }
     }
 }

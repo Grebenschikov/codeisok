@@ -68,7 +68,7 @@ class GitExe
      */
     public function __construct($project = null)
     {
-        $binary = \GitPHP\Config::GetInstance()->GetValue('gitbin');
+        $binary = \CodeIsOk\Config::GetInstance()->GetValue('gitbin');
         if (empty($binary)) {
             $this->binary = \CodeIsOk\Git\GitExe::DefaultBinary();
         } else {
@@ -108,10 +108,10 @@ class GitExe
 
         $fullCommand = $this->binary . ' ' . $gitDir . ' ' . $command . ' ' . implode(' ', $args);
 
-        \GitPHP\Log::GetInstance()->timerStart();
+        \CodeIsOk\Log::GetInstance()->timerStart();
 
         $ret = shell_exec($fullCommand);
-        \GitPHP\Log::GetInstance()->timerStop('exec', $fullCommand . "\n\n" . (in_array($command, array('cat-file')) ? substr($ret, 0, 100) : $ret));
+        \CodeIsOk\Log::GetInstance()->timerStop('exec', $fullCommand . "\n\n" . (in_array($command, array('cat-file')) ? substr($ret, 0, 100) : $ret));
 
         return $ret;
     }

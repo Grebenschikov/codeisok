@@ -9,7 +9,7 @@
 
  {* Nav *}
  <div class="page_nav">
-   {include file='nav.tpl' commit=$head treecommit=$head}
+   {include file='nav.twig.tpl' commit=$head treecommit=$head}
  </div>
  {* Tag data *}
  {assign var=object value=$tag->GetObject()}
@@ -56,5 +56,5 @@
    {/foreach}
  </div>
 
- {include file='footer.tpl'}
+ {include file='footer.twig.tpl'}
 

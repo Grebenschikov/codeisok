@@ -11,7 +11,7 @@
         {assign var=tree value=$commit->GetTree()}
     {/if}
 
-    {include file='nav.tpl' current='branchdiff' logcommit=$commit treecommit=$commit}
+    {include file='nav.twig.tpl' current='branchdiff' logcommit=$commit treecommit=$commit}
 
     <div class="diff-controls">
         <div class="diff-controls__options">
@@ -56,7 +56,7 @@
     </div>
  </div>
 
- {include file='title.tpl' compact=true}
+ {include file='title.twig.tpl' compact=true}
 
  <div class="page_body">
 
@@ -67,7 +67,7 @@
         {if $unified}
             <div class="diff_summary">
                 {if $treediff}
-                    {include file='unified_treediff.tpl' diff_source=$branchdiff}
+                    {include file='unified_treediff.twig.tpl' diff_source=$branchdiff}
                 {else}
                     {include file='extensions_filter.tpl' stasuses=$statuses extensions=$extensions folders=$folders}
 
@@ -112,10 +112,10 @@
     {/if}
 
    {if $sexy}
-       {include file="sexy_highlighter.tpl"}
+       {include file="sexy_highlighter.twig.tpl"}
    {/if}
 
  </div>
 
- {include file='footer.tpl'}
+ {include file='footer.twig.tpl'}
 

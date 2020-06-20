@@ -157,5 +157,5 @@
     {/foreach}
 </table>
 
-{include file='footer.tpl'}
+{include file='footer.twig.tpl'}
 

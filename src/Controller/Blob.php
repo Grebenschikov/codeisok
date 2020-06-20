@@ -48,7 +48,7 @@ class Blob extends Base
      */
     protected function GetTemplate()
     {
-        if (isset($this->params['plain']) && $this->params['plain']) return 'blobplain.tpl';
+        if (isset($this->params['plain']) && $this->params['plain']) return 'blobplain.twig.tpl';
         return 'blob.tpl';
     }
 
@@ -127,7 +127,7 @@ class Blob extends Base
             \CodeIsOk\Log::GetInstance()->SetEnabled(false);
 
     		// XXX: Nasty hack to cache headers
-            if (!$this->tpl->is_cached('blobheaders.tpl', $this->GetFullCacheKey())) {
+            if (!$this->tpl->is_cached('blobheaders.twig.tpl', $this->GetFullCacheKey())) {
                 if (isset($this->params['file'])) $saveas = $this->params['file'];
                 else $saveas = $this->params['hash'] . ".txt";
 
@@ -163,7 +163,7 @@ class Blob extends Base
 
                 $this->tpl->assign("blobheaders", serialize($headers));
             }
-            $out = $this->tpl->fetch('blobheaders.tpl', $this->GetFullCacheKey());
+            $out = $this->tpl->fetch('blobheaders.twig.tpl', $this->GetFullCacheKey());
 
             $this->headers = unserialize($out);
         }

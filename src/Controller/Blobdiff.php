@@ -22,7 +22,7 @@ class Blobdiff extends DiffBase
     protected function GetTemplate()
     {
         if (isset($this->params['plain']) && ($this->params['plain'] === true)) {
-            return 'blobdiffplain.tpl';
+            return 'blobdiffplain.twig.tpl';
         }
         return 'blobdiff.tpl';
     }

@@ -7,7 +7,7 @@
  *}
 {include file='header.twig.tpl'}
 
-{include file='nav.tpl' treecommit=$commit}
+{include file='nav.twig.tpl' treecommit=$commit}
 
 <div class="diff-controls">
     <div class="diff-controls__options">
@@ -22,9 +22,9 @@
     <div class="diff-controls__options page-search-container"></div>
 </div>
 
-{include file='title.tpl' titlecommit=$commit}
+{include file='title.twig.tpl' titlecommit=$commit}
 
-{include file='path.tpl' pathobject=$blobparent target='blob'}
+{include file='path.twig.tpl' pathobject=$blobparent target='blob'}
 
 <div class="page_body">
     <div class="diff_info">
@@ -75,5 +75,5 @@
     {/if}
 </div>
 
-{include file='footer.tpl'}
+{include file='footer.twig.tpl'}
 

@@ -21,7 +21,7 @@ class Heads extends Base
      */
     protected function GetTemplate()
     {
-        return 'heads.tpl';
+        return 'heads.twig.tpl';
     }
 
     /**

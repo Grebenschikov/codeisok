@@ -8,10 +8,10 @@
 {include file='header.twig.tpl'}
 
 <div class="page_nav">
-    {include file='nav.tpl' commit=$head current='summary'}
+    {include file='nav.twig.tpl' commit=$head current='summary'}
 </div>
 
-{include file='title.tpl'}
+{include file='title.twig.tpl'}
 
 {* Project brief *}
 <div class="stretch-evenly">
@@ -33,21 +33,21 @@
 </div>
 
 {if !$head}
-   {include file='title.tpl' target='shortlog' disablelink=true}
+   {include file='title.twig.tpl' target='shortlog' disablelink=true}
 {else}
-   {include file='title.tpl' target='shortlog'}
+   {include file='title.twig.tpl' target='shortlog'}
 {/if}
 
 {include file='shortloglist.tpl' source='summary'}
 
 {if $taglist}
-    {include file='title.tpl' target='tags'}
-    {include file='taglist.tpl'}
+    {include file='title.twig.tpl' target='tags'}
+    {include file='taglist.twig.tpl'}
 {/if}
 
 {if $headlist}
-    {include file='title.tpl' target='heads'}
-    {include file='headlist.tpl'}
+    {include file='title.twig.tpl' target='heads'}
+    {include file='headlist.twig.tpl'}
 {/if}
 
-{include file='footer.tpl'}
+{include file='footer.twig.tpl'}

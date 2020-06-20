@@ -37,7 +37,7 @@ abstract class GitosisBase extends Base
 
     protected function GetTemplate()
     {
-        return 'gitosis.tpl';
+        return 'gitosis.twig.tpl';
     }
 
     protected function GetCacheKey() {}

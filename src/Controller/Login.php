@@ -5,7 +5,7 @@ class Login extends Base
 {
     protected function GetTemplate()
     {
-        return 'login.tpl';
+        return 'login.twig.tpl';
     }
 
     /**

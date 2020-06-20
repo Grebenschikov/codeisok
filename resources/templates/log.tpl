@@ -8,7 +8,7 @@
 {include file='header.twig.tpl'}
 
 {* Nav *}
-{include file='nav.tpl' current='log' logcommit=$commit treecommit=$commit logmark=$mark}
+{include file='nav.twig.tpl' current='log' logcommit=$commit treecommit=$commit logmark=$mark}
 
 <div class="title compact stretch-evenly">
     {if ($commit && $head) && (($commit->GetHash() != $head->GetHash()) || ($page > 0))}
@@ -42,7 +42,7 @@
             <td width="10%">{$rev->GetAuthorName()}</td>
             <td>
                 <a href="{$SCRIPT_NAME}?p={$project->GetProject()|urlencode}&amp;a=commit&amp;h={$rev->GetHash()}">{$rev->GetTitle()}</a>
-                {include file='refbadges.tpl' commit=$rev}
+                {include file='refbadges.twig.tpl' commit=$rev}
                 {if $ticket && $smarty.foreach.revlist.first}
                     <div class="title-right"><a href="{$ticket_href}">{$ticket}</a></div>
                 {/if}
@@ -102,4 +102,4 @@
     {/foreach}
 </table>
 
-{include file='footer.tpl'}
+{include file='footer.twig.tpl'}

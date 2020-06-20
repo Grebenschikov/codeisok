@@ -8,13 +8,13 @@
 {include file='header.twig.tpl'}
 
  <div class="page_nav">
-   {include file='nav.tpl' logcommit=$commit treecommit=$commit current='commit'}
+   {include file='nav.twig.tpl' logcommit=$commit treecommit=$commit current='commit'}
  </div>
 
 {if $commit->GetParent()}
- 	{include file='title.tpl' titlecommit=$commit target='commitdiff' hasPageSearch=true}
+ 	{include file='title.twig.tpl' titlecommit=$commit target='commitdiff' hasPageSearch=true}
 {else}
-	{include file='title.tpl' titlecommit=$commit titletree=$tree target='tree' hasPageSearch=true}
+	{include file='title.twig.tpl' titlecommit=$commit titletree=$tree target='tree' hasPageSearch=true}
 {/if}
 
 {* Commit data *}
@@ -236,5 +236,5 @@
     {/foreach}
 </table>
 
-{include file='footer.tpl'}
+{include file='footer.twig.tpl'}
 

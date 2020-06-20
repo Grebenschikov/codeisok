@@ -22,7 +22,7 @@ class Blame extends Base
     protected function GetTemplate()
     {
         if (isset($this->params['js']) && $this->params['js']) {
-            return 'blamedata.tpl';
+            return 'blamedata.twig.tpl';
         }
         return 'blame.tpl';
     }
@@ -101,6 +101,8 @@ class Blame extends Base
         if ($this->params['file']) $blob->SetPath($this->params['file']);
         $blob->SetCommit($commit);
         $this->tpl->assign('blob', $blob);
+
+
 
         $this->tpl->assign('blame', $blob->GetBlame());
 

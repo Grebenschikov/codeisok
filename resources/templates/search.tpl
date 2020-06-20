@@ -8,7 +8,7 @@
 {include file='header.twig.tpl'}
 
 {* Nav *}
-{include file='nav.tpl' logcommit=$commit treecommit=$commit}
+{include file='nav.twig.tpl' logcommit=$commit treecommit=$commit}
 
 <div class="title compact stretch-evenly">
     {if $page > 0}
@@ -23,7 +23,7 @@
     <div class="page-search-container"></div>
 </div>
 
-{include file='title.tpl' titlecommit=$commit}
+{include file='title.twig.tpl' titlecommit=$commit}
 
 <table class="git-table">
     {* Print each match *}
@@ -67,5 +67,5 @@
   {/if}
 </table>
 
-{include file='footer.tpl'}
+{include file='footer.twig.tpl'}
 

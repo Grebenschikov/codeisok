@@ -83,7 +83,7 @@ function renderTreeDiff(fileList, container) {
 
     // Check if we need to display a pre-selected comment or blob
     if (!window.sbsTreeDiff) {
-        // Triggered by sexy_highlighter.tpl
+        // Triggered by sexy_highlighter.twig.tpl
         window.initTreeDiff = function () {
             // Check for existing viewed file names and mark them as viewed
             markFilesAsViewed(getViewedFiles());

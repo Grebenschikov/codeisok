@@ -21,7 +21,7 @@ class Tags extends Base
      */
     protected function GetTemplate()
     {
-        return 'tags.tpl';
+        return 'tags.twig.tpl';
     }
 
     /**

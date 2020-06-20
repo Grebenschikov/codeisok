@@ -22,7 +22,7 @@ class Branchdiff extends DiffBase
     protected function GetTemplate()
     {
         if (isset($this->params['plain']) && ($this->params['plain'] === true)) {
-            return 'branchdiffplain.tpl';
+            return 'branchdiffplain.twig.tpl';
         }
         return 'branchdiff.tpl';
     }

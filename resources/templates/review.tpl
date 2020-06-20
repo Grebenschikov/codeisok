@@ -2,7 +2,7 @@
 {include file="header.twig.tpl"}
 
 <div class="page_nav">
-    {include file='nav.tpl' commit=$head current='review'}
+    {include file='nav.twig.tpl' commit=$head current='review'}
 </div>
 
 
@@ -53,4 +53,4 @@
     </tbody>
 </table>
 
-{include file="footer.tpl"}
+{include file="footer.twig.tpl"}

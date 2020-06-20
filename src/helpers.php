@@ -9,6 +9,7 @@ const GITPHP_JSDIR = GITPHP_BASEDIR . 'public/js/';
 const GITPHP_LIBDIR = GITPHP_BASEDIR . 'public/lib/';
 
 include_once (__DIR__ . '/../.include/smartyplugins/block.t.php');
+include_once (__DIR__ . '/../.include/smartyplugins/modifier.agestring.php');
 
 function _twig(string $template, array $params = []) : string {
     /** @var \Twig\Environment $Twig */
@@ -18,10 +19,13 @@ function _twig(string $template, array $params = []) : string {
         $Twig = new \Twig\Environment($Loader, [
             'cache' => false,
             'debug' => true,
-            'strict_variables' => true
+            'strict_variables' => true,
+            'autoescape' => false,
         ]);
 
         $Twig->addTokenParser(new \CodeIsOk\Twig\TranslateTagTokenParser());
+        $Twig->addFunction(new \Twig\TwigFunction('is_a', 'is_a'));
+        $Twig->addFilter(new \Twig\TwigFilter('agestring', 'smarty_modifier_agestring'));
     }
 
     return $Twig->render($template, $params);

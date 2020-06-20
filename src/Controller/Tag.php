@@ -22,7 +22,7 @@ class Tag extends Base
     protected function GetTemplate()
     {
         if (isset($this->params['jstip']) && $this->params['jstip']) {
-            return 'tagtip.tpl';
+            return 'tagtip.twig.tpl';
         }
         return 'tag.tpl';
     }

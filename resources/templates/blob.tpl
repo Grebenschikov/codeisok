@@ -11,7 +11,7 @@
 <input type="hidden" id="review_file" value="{$blob->getPath()}" />
 
 <div class="page_nav">
-   {include file='nav.tpl' treecommit=$commit}
+   {include file='nav.twig.tpl' treecommit=$commit}
 </div>
 
 <div class="title compact stretch-evenly">
@@ -29,9 +29,9 @@
     <div class="page-search-container"></div>
 </div>
 
- {include file='title.tpl' titlecommit=$commit}
+ {include file='title.twig.tpl' titlecommit=$commit}
 
-{include file='path.tpl' pathobject=$blob target='blobplain'}
+{include file='path.twig.tpl' pathobject=$blob target='blobplain'}
 
  <div class="page_body">
    {if $datatag}
@@ -51,7 +51,7 @@
        </tr>
        </tbody>
        </table>
-        {include file="sexy_highlighter.tpl"}
+        {include file="sexy_highlighter.twig.tpl"}
    {elseif $php}
 <table class="code" id="blobData">
 <tbody>
@@ -86,4 +86,4 @@
     {/if}
  </div>
 
- {include file='footer.tpl'}
+ {include file='footer.twig.tpl'}

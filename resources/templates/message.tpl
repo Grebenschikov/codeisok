@@ -9,4 +9,4 @@
 
 <div class="message {if $error}error{/if}">{$message}</div>
 
-{include file='footer.tpl'}
+{include file='footer.twig.tpl'}

@@ -8,7 +8,7 @@
 {include file='header.twig.tpl'}
 
 {* Nav *}
-{include file='nav.tpl' logcommit=$commit treecommit=$commit current=''}
+{include file='nav.twig.tpl' logcommit=$commit treecommit=$commit current=''}
 
 <div class="title compact stretch-evenly">
     {if $page > 0}
@@ -60,5 +60,5 @@
   {/if}
 </table>
 
-{include file='footer.tpl'}
+{include file='footer.twig.tpl'}
 

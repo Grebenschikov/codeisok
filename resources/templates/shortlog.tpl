@@ -8,7 +8,7 @@
 {include file='header.twig.tpl'}
 
 {* Nav *}
-{include file='nav.tpl' current=$controller logcommit=$commit treecommit=$commit logmark=$mark}
+{include file='nav.twig.tpl' current=$controller logcommit=$commit treecommit=$commit logmark=$mark}
 
 <div class="title compact stretch-evenly">
     {if ($commit && $head) && (($commit->GetHash() != $head->GetHash()) || ($page > 0))}
@@ -34,9 +34,9 @@
     </div>
 {/if}
 
-{include file='title.tpl' target='summary'}
+{include file='title.twig.tpl' target='summary'}
 
 {include file='shortloglist.tpl' source=$controller}
 
-{include file='footer.tpl'}
+{include file='footer.twig.tpl'}
 

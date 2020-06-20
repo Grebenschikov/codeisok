@@ -51,7 +51,7 @@ abstract class DiffBase extends Base
         if (!isset($this->params['plain']) || $this->params['plain'] != true) {
             $diffcookie = $this->DiffMode(isset($_GET['o']) ? $_GET['o'] : '');
 
-            if ($diffcookie === GITPHP_DIFF_SIDEBYSIDE) {
+            if ($diffcookie === self::MODE_DIFF_SIDEBYSIDE) {
                 $this->params['sidebyside'] = true;
             } else {
                 $this->params['unified'] = true;

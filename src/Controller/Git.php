@@ -29,7 +29,7 @@ class Git extends Base
      */
     protected function GetTemplate()
     {
-        return 'git.tpl';
+        return 'git.twig.tpl';
     }
 
     /**

@@ -8,7 +8,7 @@
 {include file='header.twig.tpl'}
 
  <div class="page_nav">
-   {include file='nav.tpl' treecommit=$commit}
+   {include file='nav.twig.tpl' treecommit=$commit}
    <br />
    <a href="{$SCRIPT_NAME}?p={$project->GetProject()|urlencode}&amp;a=blob_plain&amp;h={$blob->GetHash()}&amp;f={$blob->GetPath()}">{t}plain{/t}</a> |
    {if $commit->GetHash() != $head->GetHash()}
@@ -20,9 +20,9 @@
    <br />
  </div>
 
- {include file='title.tpl' titlecommit=$commit}
+ {include file='title.twig.tpl' titlecommit=$commit}
 
- {include file='path.tpl' pathobject=$blob target='blob'}
+ {include file='path.twig.tpl' pathobject=$blob target='blob'}
 
  <div class="page_body">
  	<table class="code">
@@ -49,4 +49,4 @@
 	</table>
  </div>
 
- {include file='footer.tpl'}
+ {include file='footer.twig.tpl'}

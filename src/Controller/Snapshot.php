@@ -31,7 +31,7 @@ class Snapshot extends Base
      */
     protected function GetTemplate()
     {
-        return 'snapshot.tpl';
+        return 'snapshot.twig.tpl';
     }
 
     /**

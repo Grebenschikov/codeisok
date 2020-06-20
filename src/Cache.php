@@ -8,7 +8,7 @@ class Cache
 	 *
 	 * Cache template
 	 */
-	const Template = 'data.tpl';
+	const Template = 'data.twig.tpl';
 
 	/**
 	 * instance

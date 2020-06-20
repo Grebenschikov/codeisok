@@ -22,9 +22,9 @@ class Tree extends Base
     protected function GetTemplate()
     {
         if (isset($this->params['js']) && $this->params['js']) {
-            return 'treelist.tpl';
+            return 'treelist.twig.tpl';
         }
-        return 'tree.tpl';
+        return 'tree.twig.tpl';
     }
 
     /**

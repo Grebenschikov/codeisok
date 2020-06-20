@@ -21,7 +21,7 @@ class History extends Base
      */
     protected function GetTemplate()
     {
-        return 'history.tpl';
+        return 'history.twig.tpl';
     }
 
     /**

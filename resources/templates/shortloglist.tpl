@@ -25,7 +25,7 @@
                 {$rev->GetTitle(150)|escape}
             </a>
 
-            {include file='refbadges.tpl' commit=$rev}
+            {include file='refbadges.twig.tpl' commit=$rev}
 
             <div class="actions">
                 <a class="simple-button" href="{$SCRIPT_NAME}?p={$project->GetProject()|urlencode}&amp;a=commit&amp;h={$rev->GetHash()}&amp;retbranch={$branch_name}">{t}Commit{/t}</a>

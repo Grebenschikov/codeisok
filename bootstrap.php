@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/vendor/autoload.php';
+
 define('GITPHP_BASEDIR', dirname(__FILE__) . '/');
 define('GITPHP_CONFIGDIR', GITPHP_BASEDIR . '.config/');
 define('GITPHP_INCLUDEDIR', GITPHP_BASEDIR . '.include/');
@@ -7,9 +9,9 @@ define('GITPHP_CONTROLLERDIR', GITPHP_INCLUDEDIR . 'controller/');
 define('GITPHP_CACHEDIR', GITPHP_INCLUDEDIR . 'cache/');
 define('GITPHP_LOCALEDIR', GITPHP_BASEDIR . '.locale/');
 define('GITPHP_TEMPLATESDIR', GITPHP_BASEDIR . '.templates/');
-define('GITPHP_CSSDIR', GITPHP_BASEDIR . 'css/');
-define('GITPHP_JSDIR', GITPHP_BASEDIR . 'js/');
-define('GITPHP_LIBDIR', GITPHP_BASEDIR . 'lib/');
+define('GITPHP_CSSDIR', GITPHP_BASEDIR . 'public/css/');
+define('GITPHP_JSDIR', GITPHP_BASEDIR . 'public/js/');
+define('GITPHP_LIBDIR', GITPHP_BASEDIR . 'public/lib/');
 
 define('GITPHP_BASE_NS', 'GitPHP');
 

@@ -1,0 +1,8 @@
+{
+    "name": "badoo/codeisok",
+    "description": "Git code browsing and code review tool",
+    "type": "project",
+    "license": "GPL-3.0",
+    "minimum-stability": "dev",
+    "require": {}
+}

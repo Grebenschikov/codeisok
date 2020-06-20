@@ -162,7 +162,7 @@ class Comment extends Base
                 return;
             }
             $review_id = $this->db->addReview($ticket);
-            $this->Session->set(\GitPHP_Session::SESSION_REVIEW_ID, $review_id);
+            $this->Session->set(\CodeIsOk\Session::SESSION_REVIEW_ID, $review_id);
         }
 
         $snapshot = $this->db->findSnapshotByHashAndReview($review_id, $hash, $hash_base, $review_type);
@@ -210,7 +210,7 @@ class Comment extends Base
         }
         $hash = $_POST['hash'];
 
-        $session_review_id = $this->Session->get(\GitPHP_Session::SESSION_REVIEW_ID);
+        $session_review_id = $this->Session->get(\CodeIsOk\Session::SESSION_REVIEW_ID);
 
         $review_list = $this->db->getReview($ticket, $hash, $session_review_id);
 
@@ -262,9 +262,9 @@ class Comment extends Base
             $comments = $this->db->getCommentsByReviewAndAuthor($reviewId, $author);
             $url = Review::getReviewUrl($reviewId);
             $review_type = $comments[0]['review_type'];
-            \GitPHP_Util::sendReviewEmail($this->Session->getUser()->getEmail(), $review['ticket'], $url, $comments, $review_type);
+            \CodeIsOk\Util::sendReviewEmail($this->Session->getUser()->getEmail(), $review['ticket'], $url, $comments, $review_type);
             if (\GitPHP\Tracker::instance()->enabled()) {
-                \GitPHP_Util::addReviewToTracker($this->Session->getUser()->getId(), $review['ticket'], $url, $comments, $review_type);
+                \CodeIsOk\Util::addReviewToTracker($this->Session->getUser()->getId(), $review['ticket'], $url, $comments, $review_type);
             }
         }
 

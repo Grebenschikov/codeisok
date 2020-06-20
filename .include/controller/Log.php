@@ -7,7 +7,7 @@ class Log extends Base
     {
         parent::__construct();
         if (!$this->project) {
-            throw new \GitPHP_MessageException(__('Project is required'), true);
+            throw new \CodeIsOk\MessageException(__('Project is required'), true);
         }
     }
 
@@ -87,10 +87,10 @@ class Log extends Base
         else $this->params['page'] = 0;
         if (isset($_GET['m'])) $this->params['mark'] = $_GET['m'];
         $this->params['branchlog'] = !empty($_GET['branchlog']);
-        $this->params['base'] = $this->Session->get($this->project->GetProject() . \GitPHP_Session::SESSION_BASE_BRANCH, '');
+        $this->params['base'] = $this->Session->get($this->project->GetProject() . \CodeIsOk\Session::SESSION_BASE_BRANCH, '');
         if (isset($_REQUEST['base'])) {
             $this->params['base'] = $_REQUEST['base'];
-            $this->Session->set($this->project->GetProject() . \GitPHP_Session::SESSION_BASE_BRANCH, $this->params['base']);
+            $this->Session->set($this->project->GetProject() . \CodeIsOk\Session::SESSION_BASE_BRANCH, $this->params['base']);
         }
     }
 
@@ -132,7 +132,7 @@ class Log extends Base
             $base_branches = $this->project->GetBaseBranches($branch_name);
             $this->tpl->assign('base_branches', $base_branches);
 
-            $BranchDiff = new \GitPHP_BranchDiff($this->project, $this->params['hash'], $this->params['base'], new \DiffContext());
+            $BranchDiff = new \CodeIsOk\Git\BranchDiff($this->project, $this->params['hash'], $this->params['base'], new \CodeIsOk\DiffContext());
             $BranchDiff->SetToHash($toHash);
             $hashBase = $BranchDiff->getBaseHash();
         } else {
@@ -147,7 +147,7 @@ class Log extends Base
             }
             $revlist_hashes = array();
             $revlist_index = array();
-            /** @var $revlist \GitPHP_Commit[] */
+            /** @var $revlist \CodeIsOk\Git\Commit[] */
             foreach ($revlist as $idx => $commit) {
                 $revlist_hashes[] = $commit->GetHash();
                 $revlist_index[$commit->GetHash()] = $idx;

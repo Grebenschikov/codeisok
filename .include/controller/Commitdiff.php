@@ -7,7 +7,7 @@ class Commitdiff extends DiffBase
     {
         parent::__construct();
         if (!$this->project) {
-            throw new \GitPHP_MessageException(__('Project is required'), true);
+            throw new \CodeIsOk\MessageException(__('Project is required'), true);
         }
     }
 
@@ -126,13 +126,13 @@ class Commitdiff extends DiffBase
         }
 
         $renames = true;
-        $DiffContext = new \DiffContext();
+        $DiffContext = new \CodeIsOk\DiffContext();
         $DiffContext->setRenames($renames)
             ->setContext($this->params['context'])
             ->setIgnoreWhitespace($this->params['ignorewhitespace'])
             ->setIgnoreFormatting($this->params['ignoreformat']);
 
-        $commit_tree_diff = new \GitPHP_TreeDiff(
+        $commit_tree_diff = new \CodeIsOk\Git\TreeDiff(
             $this->project,
             $this->params['hash'],
             (isset($this->params['hashparent']) ? $this->params['hashparent'] : ''),
@@ -142,7 +142,7 @@ class Commitdiff extends DiffBase
         $this->loadReviewsLinks($co, implode('', $co->GetComment()));
 
         if (empty($this->params['sidebyside'])) {
-            include_once(\GitPHP_Util::AddSlash('.include/lib/syntaxhighlighter') . "syntaxhighlighter.php");
+            include_once(\CodeIsOk\Util::AddSlash('.include/lib/syntaxhighlighter') . "syntaxhighlighter.php");
             $this->tpl->assign('sexy', 1);
             $this->tpl->assign('highlighter_no_ruler', 1);
             $this->tpl->assign('highlighter_diff_enabled', 1);
@@ -152,7 +152,7 @@ class Commitdiff extends DiffBase
             $statuses = [];
             $folders = [];
             foreach ($commit_tree_diff as $filediff) {
-                /** @var \GitPHP_FileDiff $filediff */
+                /** @var \CodeIsOk\Git\FileDiff $filediff */
 
                 $extensions[$filediff->getToFileExtension()] = $filediff->getToFileExtension();
                 $statuses[$filediff->GetStatus()] = $filediff->GetStatus();

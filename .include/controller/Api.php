@@ -15,7 +15,7 @@ class Api implements ControllerInterface
     {
         $this->renderCommonHeaders();
 
-        $Session = \GitPHP_Session::instance();
+        $Session = \CodeIsOk\Session::instance();
         if (!$Session->isAuthorized()) {
             $this->sendResponse(['error' => "Unauthorized api usage is forbidden"], 403);
             return;
@@ -81,7 +81,7 @@ class Api implements ControllerInterface
                 $this->project = false;
             } else {
                 try {
-                    $this->project = \GitPHP_ProjectList::GetInstance()->GetProject(substr($last_uri_part, 0, $dot_git_pos + 4));
+                    $this->project = \CodeIsOk\Git\ProjectList::GetInstance()->GetProject(substr($last_uri_part, 0, $dot_git_pos + 4));
                 } catch (\Exception $e) {
                     $this->project = false;
                 }
@@ -123,7 +123,7 @@ class Api implements ControllerInterface
             $this->sendResponse(
                 [
                     'commits' => array_map(
-                        function (\GitPHP_Commit $Commit) { return $this->renderCommit($Commit); },
+                        function (\CodeIsOk\Git\Commit $Commit) { return $this->renderCommit($Commit); },
                         $this->getProject()->GetLog($range_to, $limit, 0, $range_from, $rev_list_opts)
                     )
                 ]
@@ -160,7 +160,7 @@ class Api implements ControllerInterface
         $this->sendResponse(
             [
                 'commits' => array_map(
-                    function (\GitPHP_Commit $Commit) { return $this->renderCommit($Commit); },
+                    function (\CodeIsOk\Git\Commit $Commit) { return $this->renderCommit($Commit); },
                     $this->getProject()->GetLog($branch, 1000, 0, $compare_with, $rev_list_options)
                 )
             ]
@@ -240,10 +240,10 @@ class Api implements ControllerInterface
     }
 
     /**
-     * @param \GitPHP_Commit $Commit
+     * @param \CodeIsOk\Git\Commit $Commit
      * @return array
      */
-    protected function renderCommit(\GitPHP_Commit $Commit) : array
+    protected function renderCommit(\CodeIsOk\Git\Commit $Commit) : array
     {
         $commit_info = [
             'hash'         => $Commit->GetHash(),
@@ -262,7 +262,7 @@ class Api implements ControllerInterface
             switch ($item) {
                 case 'name-status':
                     $commit_info['name-status'] = array_map(
-                        function (\GitPHP_FileDiff $FileDiff) {
+                        function (\CodeIsOk\Git\FileDiff $FileDiff) {
                             return ['file' => $FileDiff->GetFromFile(), 'status' => $FileDiff->GetStatus()];
                         },
                         $Commit->DiffToParent()->ToArray()

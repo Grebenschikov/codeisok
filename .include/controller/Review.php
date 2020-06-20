@@ -73,7 +73,7 @@ class Review extends Base
         if ($this->params['review']) {
             $snapshots = $db->getSnapshotListByReview($this->params['review']);
             if (!empty($snapshots[0]) && !empty($snapshots[0]['repo'])) {
-                $this->project = \GitPHP_ProjectList::GetInstance()->GetProject($snapshots[0]['repo']);
+                $this->project = \CodeIsOk\Git\ProjectList::GetInstance()->GetProject($snapshots[0]['repo']);
                 $this->tpl->assign('project', $this->project);
             }
         } else {
@@ -104,7 +104,7 @@ class Review extends Base
                 $comments = $db->getComments($snapshot['id']);
                 $comment = reset($comments);
             }
-            $url = \GitPHP_Util::getReviewLink($snapshot, $comment['file']);
+            $url = \CodeIsOk\Util::getReviewLink($snapshot, $comment['file']);
 
             $this->redirect($url . $c);
         }
@@ -129,7 +129,7 @@ class Review extends Base
                 $comment = reset($comments);
                 $snapshot['file'] = $comment['file'];
             }
-            $snapshot['url'] = \GitPHP_Util::getReviewLink($snapshot, $snapshot['file'] ?? null);
+            $snapshot['url'] = \CodeIsOk\Util::getReviewLink($snapshot, $snapshot['file'] ?? null);
 
             if ($snapshot['hash_base'] == 'blob') {
                 $snapshot['title'] = $snapshot['hash_head'] . ' ' . $snapshot['file'];
@@ -145,7 +145,7 @@ class Review extends Base
 
     public static function getReviewUrl($reviewId)
     {
-        $hostname = \GitPHP_Util::getHostnameUrl();
+        $hostname = \CodeIsOk\Util::getHostnameUrl();
         $url = $hostname . '/r/' . $reviewId;
         return $url;
     }

@@ -7,7 +7,7 @@ class Blobdiff extends DiffBase
     {
         parent::__construct();
         if (!$this->project) {
-            throw new \GitPHP_MessageException(__('Project is required'), true);
+            throw new \CodeIsOk\MessageException(__('Project is required'), true);
         }
     }
 
@@ -93,11 +93,11 @@ class Blobdiff extends DiffBase
         parent::LoadData();
         if (isset($this->params['file'])) $this->tpl->assign('file', $this->params['file']);
 
-        $DiffContext = new \DiffContext();
+        $DiffContext = new \CodeIsOk\DiffContext();
         $DiffContext->setContext($this->params['context'])
             ->setIgnoreWhitespace($this->params['ignorewhitespace'])
             ->setIgnoreFormatting($this->params['ignoreformat']);
-        $filediff = new \GitPHP_FileDiff(
+        $filediff = new \CodeIsOk\Git\FileDiff(
             $this->project,
             $this->params['hashparent'],
             $this->params['hash'],

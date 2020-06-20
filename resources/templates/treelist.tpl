@@ -10,7 +10,7 @@
  *}
 
 {foreach from=$tree->GetContents() item=treeitem}
-    {if $treeitem instanceof GitPHP_Blob}
+    {if is_a($treeitem, '\CodeIsOk\Git\Blob') }
       <tr>
           <td class="list fileName">
               <span class="expander"></span>
@@ -27,7 +27,7 @@
             </div>
           </td>
       </tr>
-    {elseif $treeitem instanceof GitPHP_Tree}
+    {elseif is_a($treeitem, '\CodeIsOk\Git\Tree') }
       <tr>
           <td class="list folderName">
               <span class="expander" data-expand-url="{$SCRIPT_NAME}?p={$project->GetProject()|urlencode}&amp;a=tree&amp;h={$treeitem->GetHash()}&amp;hb={$commit->GetHash()}&amp;f={$treeitem->GetPath()}"></span>

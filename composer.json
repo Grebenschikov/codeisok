@@ -4,5 +4,14 @@
     "type": "project",
     "license": "GPL-3.0",
     "minimum-stability": "dev",
-    "require": {}
+    "require": {},
+    "autoload": {
+    	"psr-4": {
+          "CodeIsOk\\": "src/",
+          "GitPHP\\": ".include/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    }
 }

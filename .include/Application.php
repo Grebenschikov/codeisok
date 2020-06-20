@@ -39,23 +39,23 @@ class Application
     {
         if (!empty($_GET['l'])) {
             setcookie(self::GITPHP_LOCALE_COOKIE, $_GET['l'], time() + self::GITPHP_LOCALE_COOKIE_LIFETIME);
-            \GitPHP_Resource::Instantiate($_GET['l']);
+            \CodeIsOk\Resource::Instantiate($_GET['l']);
         } else if (!empty($_COOKIE[self::GITPHP_LOCALE_COOKIE])) {
-            \GitPHP_Resource::Instantiate($_COOKIE[self::GITPHP_LOCALE_COOKIE]);
+            \CodeIsOk\Resource::Instantiate($_COOKIE[self::GITPHP_LOCALE_COOKIE]);
         } else {
             if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-                if ($preferredLocale = \GitPHP_Resource::FindPreferredLocale($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+                if ($preferredLocale = \CodeIsOk\Resource::FindPreferredLocale($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
                     setcookie(self::GITPHP_LOCALE_COOKIE, $preferredLocale, time() + self::GITPHP_LOCALE_COOKIE_LIFETIME);
-                    \GitPHP_Resource::Instantiate($preferredLocale);
+                    \CodeIsOk\Resource::Instantiate($preferredLocale);
                 }
             }
-            if (!\GitPHP_Resource::Instantiated()) {
+            if (!\CodeIsOk\Resource::Instantiated()) {
                 setcookie(self::GITPHP_LOCALE_COOKIE, 0, time() + self::GITPHP_LOCALE_COOKIE_LIFETIME);
             }
         }
 
-        if (!\GitPHP_Resource::Instantiated()) {
-            \GitPHP_Resource::Instantiate(\GitPHP\Config::GetInstance()->GetValue('locale', 'en_US'));
+        if (!\CodeIsOk\Resource::Instantiated()) {
+            \CodeIsOk\Resource::Instantiate(\GitPHP\Config::GetInstance()->GetValue('locale', 'en_US'));
         }
 
         if (isset($_GET['fix_lineheight'])) {
@@ -102,12 +102,12 @@ class Application
     private function initProject()
     {
         if (!\GitPHP\Config::GetInstance()->GetValue('projectroot', null)) {
-            throw new \GitPHP_MessageException(__('A projectroot must be set in the config'), true, 500);
+            throw new \CodeIsOk\MessageException(__('A projectroot must be set in the config'), true, 500);
         }
 
-        $exe = new \GitPHP_GitExe(null);
+        $exe = new \CodeIsOk\Git\GitExe(null);
         if (!$exe->Valid()) {
-            throw new \GitPHP_MessageException(
+            throw new \CodeIsOk\MessageException(
                 sprintf(
                     __('Could not run the git executable "%1$s".  You may need to set the "%2$s" config value.'),
                     $exe->GetBinary(),
@@ -117,9 +117,9 @@ class Application
                 500
             );
         }
-        $exe = new \GitPHP_DiffExe();
+        $exe = new \CodeIsOk\Git\DiffExe();
         if (!$exe->Valid()) {
-            throw new \GitPHP_MessageException(
+            throw new \CodeIsOk\MessageException(
                 sprintf(
                     __('Could not run the diff executable "%1$s".  You may need to set the "%2$s" config value.'),
                     $exe->GetBinary(),
@@ -131,7 +131,7 @@ class Application
         }
 
         if (file_exists(GITPHP_CONFIGDIR . 'projects.conf.php')) {
-            \GitPHP_ProjectList::Instantiate(GITPHP_CONFIGDIR . 'projects.conf.php', false);
+            \CodeIsOk\Git\ProjectList::Instantiate(GITPHP_CONFIGDIR . 'projects.conf.php', false);
         }
     }
 
@@ -163,7 +163,7 @@ class Application
         try {
             $controller = new \GitPHP\Controller\Message();
             $controller->SetParam('message', $e->getMessage());
-            if ($e instanceof \GitPHP_MessageException) {
+            if ($e instanceof \CodeIsOk\MessageException) {
                 $controller->SetParam('error', $e->Error);
                 $controller->SetParam('statuscode', $e->StatusCode);
             } else {

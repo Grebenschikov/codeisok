@@ -9,7 +9,7 @@ class Snapshot extends Base
      * Stores the archive object
      *
      * @access private
-     * @var \GitPHP_Archive
+     * @var \CodeIsOk\Git\Archive
      */
     private $archive = null;
 
@@ -17,7 +17,7 @@ class Snapshot extends Base
     {
         parent::__construct();
         if (!$this->project) {
-            throw new \GitPHP_MessageException(__('Project is required'), true);
+            throw new \CodeIsOk\MessageException(__('Project is required'), true);
         }
     }
 
@@ -79,7 +79,7 @@ class Snapshot extends Base
         if (isset($_GET['fmt'])) {
             $this->params['format'] = $_GET['fmt'];
         } else {
-            $this->params['format'] = \GitPHP\Config::GetInstance()->GetValue('compressformat', \GitPHP_Archive::GITPHP_COMPRESS_ZIP);
+            $this->params['format'] = \GitPHP\Config::GetInstance()->GetValue('compressformat', \CodeIsOk\Git\Archive::GITPHP_COMPRESS_ZIP);
         }
 
         \GitPHP\Log::GetInstance()->SetEnabled(false);
@@ -94,7 +94,7 @@ class Snapshot extends Base
      */
     protected function LoadHeaders()
     {
-        $this->archive = new \GitPHP_Archive(
+        $this->archive = new \CodeIsOk\Git\Archive(
             $this->project,
             null,
             $this->params['format'],

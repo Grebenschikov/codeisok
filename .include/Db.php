@@ -167,7 +167,7 @@ class Db
     /**
      * @param $sql
      * @param $params
-     * @return bool|\GitPHP\Db_Result
+     * @return bool|\CodeIsOk\Db\Result
      */
     public function query($sql, $params)
     {
@@ -186,7 +186,7 @@ class Db
             if ($result instanceof \mysqli_result) $this->numRows = mysqli_num_rows($result);
             $this->affectedRows = mysqli_affected_rows($this->link);
             $this->insert_id = mysqli_insert_id($this->link);
-            $result = new Db_Result($result);
+            $result = new \CodeIsOk\Db\Result($result);
         }
         return $result;
     }

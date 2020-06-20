@@ -1,12 +1,12 @@
 #!/usr/bin/env php
 <?php
-require_once __DIR__ . '/bootstrap.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 class UpdateCache
 {
     public function run()
     {
-        $Gitosis = new Model_Gitosis();
+        $Gitosis = new \CodeIsOk\Model\Gitosis();
 
         $repositories = $Gitosis->getRepositories();
         if ($repositories === false) {
@@ -17,7 +17,7 @@ class UpdateCache
         foreach ($repositories as $repository) {
             try {
                 echo date('r') . ": Running for {$repository['project']}\n";
-                $Project = new GitPHP_Project($repository['project']);
+                $Project = new \CodeIsOk\Git\Project($repository['project']);
                 $Project->UpdateUnmergedCommitsCache();
                 $Project->UpdateHeadsCache();
             } catch (\Exception $e) {

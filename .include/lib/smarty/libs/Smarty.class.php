@@ -1118,7 +1118,7 @@ class Smarty
      */
     function fetch($resource_name, $cache_id = null, $compile_id = null, $display = false)
     {
-        $CountObject = new CountClass($resource_name);
+        $CountObject = new \CodeIsOk\CountClass($resource_name);
         static $_cache_info = array();
         
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->error_reporting)
@@ -1678,7 +1678,7 @@ class Smarty
      */
     function _run_mod_handler()
     {
-        $Log = new CountClass(__FUNCTION__);
+        $Log = new \CodeIsOk\CountClass(__FUNCTION__);
         $_args = func_get_args();
         list($_modifier_name, $_map_array) = array_splice($_args, 0, 2);
         list($_func_name, $_tpl_file, $_tpl_line) =
@@ -1848,7 +1848,7 @@ class Smarty
 
     function _smarty_include($params)
     {
-        $CountObject = new CountClass($params['smarty_include_tpl_file']);
+        $CountObject = new \CodeIsOk\CountClass($params['smarty_include_tpl_file']);
         if ($this->debugging) {
             $_params = array();
             require_once(SMARTY_CORE_DIR . 'core.get_microtime.php');
@@ -1922,7 +1922,7 @@ class Smarty
      */
     function _include($filename, $once=false, $params=null)
     {
-        $CountObject = new CountClass($filename);
+        $CountObject = new \CodeIsOk\CountClass($filename);
         if ($once) {
             return include_once($filename);
         } else {
@@ -1937,7 +1937,7 @@ class Smarty
      */
     function _eval($code, $params=null)
     {
-        $CountObject = new CountClass($code);
+        $CountObject = new \CodeIsOk\CountClass($code);
         return eval($code);
     }
     

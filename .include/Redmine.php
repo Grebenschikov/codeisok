@@ -59,7 +59,7 @@ class Redmine
 
     protected function request($url, $http_method, $method, $data = null, $headers = [])
     {
-        $Counter = new \CountClass(__METHOD__, "$http_method $method");
+        $Counter = new \CodeIsOk\CountClass(__METHOD__, "$http_method $method");
         $headers = array_merge($headers, [
             'Accept: application/json',
             'Content-Type: application/json',

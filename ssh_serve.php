@@ -1,7 +1,6 @@
 #!/usr/bin/env php
 <?php
-
-require_once(dirname(__FILE__) . '/bootstrap.php');
+require_once __DIR__ . '/vendor/autoload.php';
 
 class SSH_Serve
 {
@@ -66,7 +65,7 @@ class SSH_Serve
 
     public function run()
     {
-        $ModelGitosis = new Model_Gitosis();
+        $ModelGitosis = new \CodeIsOk\Model\Gitosis();
         $global_mode = $this->getUserGlobalAccessMode($ModelGitosis, $this->user);
         if (!$global_mode || ($global_mode === 'readonly' && in_array($this->command, self::COMMANDS_WRITE)) || $this->isRestrictedRepository($ModelGitosis, $this->repository)) {
             $access = $ModelGitosis->getUserAccessToRepository($this->user, $this->repository);
@@ -101,13 +100,13 @@ class SSH_Serve
         //file_put_contents('out.txt', var_export([$this->user, $this->command, $this->argument, $access], 1), FILE_APPEND);
     }
 
-    protected function isRestrictedRepository(Model_Gitosis $ModelGitosis, $repository)
+    protected function isRestrictedRepository(\CodeIsOk\Model\Gitosis $ModelGitosis, $repository)
     {
         $repository_info = $ModelGitosis->getRepositoryByProject($repository);
         return $repository_info['restricted'] == 'Yes';
     }
 
-    protected function getUserGlobalAccessMode(Model_Gitosis $Gitosis, $username)
+    protected function getUserGlobalAccessMode(\CodeIsOk\Model\Gitosis $Gitosis, $username)
     {
         $user = $Gitosis->getUserByUsername($username);
         if ($user['access_mode'] == \GitPHP\Controller\GitosisUsers::ACCESS_MODE_ALLOW_ALL) {

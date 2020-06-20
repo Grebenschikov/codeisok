@@ -36,7 +36,7 @@ class Blob extends Base
     {
         parent::__construct();
         if (!$this->project) {
-            throw new \GitPHP_MessageException(__('Project is required'), true);
+            throw new \CodeIsOk\MessageException(__('Project is required'), true);
         }
     }
 
@@ -126,7 +126,7 @@ class Blob extends Base
     {
         $result = false;
         if (\GitPHP\Config::GetInstance()->GetValue('geshi', true)) {
-            include_once(\GitPHP_Util::AddSlash(\GitPHP\Config::GetInstance()->GetValue('geshiroot', 'lib/geshi/')) . "geshi.php");
+            include_once(\CodeIsOk\Util::AddSlash(\GitPHP\Config::GetInstance()->GetValue('geshiroot', 'lib/geshi/')) . "geshi.php");
             if (class_exists('GeSHi')) {
                 $result = true;
             }
@@ -195,13 +195,13 @@ class Blob extends Base
      * Loads data for this template
      *
      * @access protected
-     * @throws \GitPHP_MessageException
+     * @throws \CodeIsOk\MessageException
      */
     protected function LoadData()
     {
         $commit = $this->project->GetCommit($this->params['hashbase']);
         if (!$commit) {
-            throw new \GitPHP_MessageException("Incorrect hash {$this->params['hashbase']}", true, 404);
+            throw new \CodeIsOk\MessageException("Incorrect hash {$this->params['hashbase']}", true, 404);
         }
         $this->tpl->assign('commit', $commit);
 

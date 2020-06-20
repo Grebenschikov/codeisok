@@ -17,7 +17,7 @@ abstract class Base implements ControllerInterface
      *
      * Current project
      *
-     * @var \GitPHP_Project
+     * @var \CodeIsOk\Git\Project
      * @access protected
      */
     protected $project;
@@ -41,7 +41,7 @@ abstract class Base implements ControllerInterface
     protected $headers = [];
 
     /**
-     * @var \GitPHP_Session
+     * @var \CodeIsOk\Session
      */
     protected $Session = null;
 
@@ -56,7 +56,7 @@ abstract class Base implements ControllerInterface
     public function __construct()
     {
         \GitPHP\Log::GetInstance()->timerStart();
-        require_once(\GitPHP_Util::AddSlash(\GitPHP\Config::GetInstance()->GetValue('smarty_prefix', '.include/lib/smarty/libs/')) . 'Smarty.class.php');
+        require_once(\CodeIsOk\Util::AddSlash(\GitPHP\Config::GetInstance()->GetValue('smarty_prefix', '.include/lib/smarty/libs/')) . 'Smarty.class.php');
         \GitPHP\Log::GetInstance()->timerStop('require Smarty.class.php');
         $this->tpl = new \Smarty;
         $this->tpl->plugins_dir[] = GITPHP_INCLUDEDIR . 'smartyplugins';
@@ -74,15 +74,13 @@ abstract class Base implements ControllerInterface
 
             $servers = \GitPHP\Config::GetInstance()->GetValue('memcache', null);
             if (isset($servers) && is_array($servers) && (count($servers) > 0)) {
-                require_once(GITPHP_CACHEDIR . 'Memcache.class.php');
-                \GitPHP_Memcache::GetInstance()->AddServers($servers);
-                require_once(GITPHP_CACHEDIR . 'memcache_cache_handler.php');
+                \CodeIsOk\Memcache::GetInstance()->AddServers($servers);
                 $this->tpl->cache_handler_func = 'memcache_cache_handler';
             }
         }
 
         if (isset($_GET['p'])) {
-            $this->project = \GitPHP_ProjectList::GetInstance()->GetProject(str_replace(chr(0), '', $_GET['p']));
+            $this->project = \CodeIsOk\Git\ProjectList::GetInstance()->GetProject(str_replace(chr(0), '', $_GET['p']));
         }
 
         if (isset($_GET['s'])) $this->params['search'] = $_GET['s'];
@@ -96,7 +94,7 @@ abstract class Base implements ControllerInterface
         \GitPHP\Log::GetInstance()->timerStop('checkUser');
 
         if (isset($_GET['p']) && !$this->project) {
-            throw new \GitPHP_MessageException(sprintf(__('Invalid project %1$s'), $_GET['p']), true, 404);
+            throw new \CodeIsOk\MessageException(sprintf(__('Invalid project %1$s'), $_GET['p']), true, 404);
         }
 
         /* this is not a part of initialization */
@@ -138,9 +136,9 @@ abstract class Base implements ControllerInterface
      */
     protected function GetCacheKeyPrefix($projectKeys = true)
     {
-        $cacheKeyPrefix = \GitPHP_Resource::GetLocale();
+        $cacheKeyPrefix = \CodeIsOk\Resource::GetLocale();
 
-        $projList = \GitPHP_ProjectList::GetInstance();
+        $projList = \CodeIsOk\Git\ProjectList::GetInstance();
         if ($projList) {
             $cacheKeyPrefix .= '|' . sha1(serialize($projList->GetConfig())) . '|' . sha1(serialize($projList->GetSettings()));
             unset($projList);
@@ -304,8 +302,8 @@ abstract class Base implements ControllerInterface
         if (\GitPHP\Config::GetInstance()->GetValue('filesearch', true)) $this->tpl->assign('filesearch', true);
         $this->tpl->assign('search', isset($this->params['search']) ? $this->params['search'] : null);
         if (isset($this->params['searchtype'])) $this->tpl->assign('searchtype', $this->params['searchtype']);
-        $this->tpl->assign('currentlocale', \GitPHP_Resource::GetLocale());
-        $this->tpl->assign('supportedlocales', \GitPHP_Resource::SupportedLocales());
+        $this->tpl->assign('currentlocale', \CodeIsOk\Resource::GetLocale());
+        $this->tpl->assign('supportedlocales', \CodeIsOk\Resource::SupportedLocales());
 
         $getvars = explode('&', $_SERVER['QUERY_STRING']);
         $getvarsmapped = [];
@@ -321,7 +319,7 @@ abstract class Base implements ControllerInterface
         }
         $this->tpl->assign('requestvars', $getvarsmapped);
 
-        $this->tpl->assign('snapshotformats', \GitPHP_Archive::SupportedFormats());
+        $this->tpl->assign('snapshotformats', \CodeIsOk\Git\Archive::SupportedFormats());
         $this->tpl->assign('Session', $this->Session);
         $this->tpl->assign('User', $this->Session->getUser());
 
@@ -423,7 +421,7 @@ abstract class Base implements ControllerInterface
 
     protected function initSession()
     {
-        $this->Session = \GitPHP_Session::instance();
+        $this->Session = \CodeIsOk\Session::instance();
     }
 
     public static function finishScript()

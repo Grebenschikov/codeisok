@@ -73,7 +73,7 @@ class Blob extends \CodeIsOk\Git\FilesystemObject
         $commit_hash = escapeshellarg($commit_hash);
         $file_name = escapeshellarg($file_name);
 
-        $file_info = $exe->Execute(GIT_LS_TREE, ["$commit_hash -- $file_name"]);
+        $file_info = $exe->Execute(GitExe::GIT_LS_TREE, ["$commit_hash -- $file_name"]);
         if (!empty($file_info)) {
             $file_info = explode(' ', $file_info);
             return explode("\t", $file_info[2])[0];
@@ -131,7 +131,7 @@ class Blob extends \CodeIsOk\Git\FilesystemObject
             $args[] = 'blob';
             $args[] = $this->hash;
 
-            $this->data = $exe->Execute(GIT_CAT_FILE, $args);
+            $this->data = $exe->Execute(GitExe::GIT_CAT_FILE, $args);
 
             \CodeIsOk\Cache::GetInstance()->Set($this->GetCacheKey(), $this);
         }
@@ -380,13 +380,13 @@ class Blob extends \CodeIsOk\Git\FilesystemObject
         $args[] = '|';
         $args[] = $exe->GetBinary();
         $args[] = '--git-dir=' . $this->GetProject()->GetPath();
-        $args[] = GIT_DIFF_TREE;
+        $args[] = GitExe::GIT_DIFF_TREE;
         $args[] = '-r';
         $args[] = '--stdin';
         $args[] = '--';
         $args[] = $this->GetPath();
 
-        $historylines = explode("\n", $exe->Execute(GIT_REV_LIST, $args));
+        $historylines = explode("\n", $exe->Execute(GitExe::GIT_REV_LIST, $args));
 
         $commit = null;
         foreach ($historylines as $line) {
@@ -439,7 +439,7 @@ class Blob extends \CodeIsOk\Git\FilesystemObject
         $args[] = '--';
         $args[] = $this->GetPath();
 
-        $blamelines = explode("\n", $exe->Execute(GIT_BLAME, $args));
+        $blamelines = explode("\n", $exe->Execute(GitExe::GIT_BLAME, $args));
 
         $lastcommit = '';
         foreach ($blamelines as $line) {

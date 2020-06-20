@@ -5,8 +5,6 @@ define('GITPHP_START_MEM', memory_get_usage());
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-define('DO_NOT_USE_ERROR_HANDLER', 1);
-
 $Application = new \CodeIsOk\Application();
 
 \CodeIsOk\Log::GetInstance()->timerStart();

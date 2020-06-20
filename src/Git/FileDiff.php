@@ -631,7 +631,7 @@ class FileDiff
                 $args[] = escapeshellarg($this->fromFile);
             }
             $Git = new \CodeIsOk\Git\GitExe($this->project);
-            $diff = trim($Git->Execute(GIT_DIFF, $args));
+            $diff = trim($Git->Execute(GitExe::GIT_DIFF, $args));
             $this->diffData = substr($diff, strpos($diff, '---'));
         } else if (!$this->DiffContext->getIgnoreFormatting() && !empty($this->toHashOriginal)) {
             $args = array();
@@ -659,7 +659,7 @@ class FileDiff
                 $args[] = escapeshellarg($this->fromFile);
             }
             $Git = new \CodeIsOk\Git\GitExe($this->project);
-            $diff = trim($Git->Execute(GIT_SHOW, $args));
+            $diff = trim($Git->Execute(GitExe::GIT_SHOW, $args));
             $this->diffData = substr($diff, strpos($diff, '---'));
         } else {
             $tmpdir = \CodeIsOk\Git\TmpDir::GetInstance();
@@ -771,7 +771,7 @@ class FileDiff
         $args[] = $this->fromHash;
         $args[] = $this->toHash;
 
-        $diffLines = explode("\n", $exe->Execute(GIT_DIFF, $args));
+        $diffLines = explode("\n", $exe->Execute(GitExe::GIT_DIFF, $args));
 
         unset($exe);
 

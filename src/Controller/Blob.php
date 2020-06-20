@@ -1,8 +1,6 @@
 <?php
 namespace CodeIsOk\Controller;
 
-require_once __DIR__ . '/../../.include/lib/syntaxhighlighter/syntaxhighlighter.php';
-
 /**
  * Blob controller class
  *
@@ -13,23 +11,23 @@ class Blob extends Base
 {
     protected $code_mirror_modes = [
         // 'file_extension' => 'mode' | 'mime-type'
-        \SyntaxHighlighter::TYPE_TEXT => 'text',
-        \SyntaxHighlighter::TYPE_PHP => 'php',
-        \SyntaxHighlighter::TYPE_JS => 'javascript',
-        \SyntaxHighlighter::TYPE_CSS => 'css',
-        \SyntaxHighlighter::TYPE_BASH => 'shell',
-        \SyntaxHighlighter::TYPE_JAVA => 'text/x-java',
-        \SyntaxHighlighter::TYPE_XML => 'xml',
-        \SyntaxHighlighter::TYPE_SQL => 'sql',
-        \SyntaxHighlighter::TYPE_PYTHON => 'python',
-        \SyntaxHighlighter::TYPE_DIFF => 'diff',
-        \SyntaxHighlighter::TYPE_CPP => 'text/x-c++src',
+        \CodeIsOk\SyntaxHighlighter::TYPE_TEXT => 'text',
+        \CodeIsOk\SyntaxHighlighter::TYPE_PHP => 'php',
+        \CodeIsOk\SyntaxHighlighter::TYPE_JS => 'javascript',
+        \CodeIsOk\SyntaxHighlighter::TYPE_CSS => 'css',
+        \CodeIsOk\SyntaxHighlighter::TYPE_BASH => 'shell',
+        \CodeIsOk\SyntaxHighlighter::TYPE_JAVA => 'text/x-java',
+        \CodeIsOk\SyntaxHighlighter::TYPE_XML => 'xml',
+        \CodeIsOk\SyntaxHighlighter::TYPE_SQL => 'sql',
+        \CodeIsOk\SyntaxHighlighter::TYPE_PYTHON => 'python',
+        \CodeIsOk\SyntaxHighlighter::TYPE_DIFF => 'diff',
+        \CodeIsOk\SyntaxHighlighter::TYPE_CPP => 'text/x-c++src',
         // there is no applescript mode in https://github.com/marijnh/CodeMirror/tree/master/mode :(
         // \SyntaxHighlighter::TYPE_APPLE_SCRIPT => 'applescript',
-        \SyntaxHighlighter::TYPE_RUBY => 'ruby',
-        \SyntaxHighlighter::TYPE_CSHARP => 'text/x-csharp',
-        \SyntaxHighlighter::TYPE_OBJC => 'text/x-objc',
-        \SyntaxHighlighter::TYPE_KOTLIN => 'text/x-kotlin',
+        \CodeIsOk\SyntaxHighlighter::TYPE_RUBY => 'ruby',
+        \CodeIsOk\SyntaxHighlighter::TYPE_CSHARP => 'text/x-csharp',
+        \CodeIsOk\SyntaxHighlighter::TYPE_OBJC => 'text/x-objc',
+        \CodeIsOk\SyntaxHighlighter::TYPE_KOTLIN => 'text/x-kotlin',
     ];
 
     public function __construct()
@@ -150,7 +148,7 @@ class Blob extends Base
 
                 $file_name = $this->params['file'];
                 if (preg_match('/.*?\.(\w+)$/', $file_name, $matches)) {
-                    $type = \SyntaxHighlighter::getTypeByExtension($matches[1]);
+                    $type = \CodeIsOk\SyntaxHighlighter::getTypeByExtension($matches[1]);
                     if ($type && isset($this->code_mirror_modes[$type])) {
                         $headers[] = 'Cm-mode: ' . $this->code_mirror_modes[$type];
                     } else {
@@ -222,8 +220,7 @@ class Blob extends Base
 
         switch ($this->params['hi']) {
             case 'sexy':
-                include_once('.include/lib/syntaxhighlighter/syntaxhighlighter.php');
-                $SH = new \SyntaxHighlighter($blob->GetName());
+                $SH = new \CodeIsOk\SyntaxHighlighter($blob->GetName());
                 $this->tpl->assign('sexy', 1);
                 $this->tpl->assign('extracss_files', $SH->getCssList());
                 $this->tpl->assign('extrajs_files', $SH->getJsList());

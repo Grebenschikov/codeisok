@@ -1,4 +1,4 @@
-{include file='header.tpl'}
+{include file='header.twig.tpl'}
 {include file='gitosismenu.tpl'}
 
 {assign var=current_template value="gitosis`$current_section`.tpl"}

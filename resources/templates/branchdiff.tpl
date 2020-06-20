@@ -1,4 +1,4 @@
-{include file='header.tpl'}
+{include file='header.twig.tpl'}
 
 {if $commit}
     <input type="hidden" id="review_hash_head" value="{$commit->GetHash()}" />

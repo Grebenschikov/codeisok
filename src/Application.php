@@ -293,8 +293,8 @@ class Application
             case 'atom':
             case 'rss':
                 $controller = new \CodeIsOk\Controller\Feed();
-                if ($action == 'rss') $controller->SetParam('format', GITPHP_FEED_FORMAT_RSS);
-                else if ($action == 'atom') $controller->SetParam('format', GITPHP_FEED_FORMAT_ATOM);
+                if ($action == 'rss') $controller->SetParam('format', Controller\Feed::FEED_FORMAT_RSS);
+                else if ($action == 'atom') $controller->SetParam('format', Controller\Feed::FEED_FORMAT_ATOM);
                 break;
 
             case 'commit':

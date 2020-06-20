@@ -9,7 +9,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 fi
 
 service mysql start
-service php7.0-fpm start
+service php7.2-fpm start
 service ssh start
 
 mysql -uroot -proot < /local/schema.sql

@@ -19,16 +19,16 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y --no-install-recommends \
         nginx \
         mysql-server-5.7 \
-        php7.0-curl \
-        php7.0-fpm \
-        php7.0-gd \
-        php7.0-imagick \
-        php7.0-json \
-        php7.0-mbstring \
-        php7.0-mysqlnd \
-        php7.0-soap \
-        php7.0-xml \
-        php7.0-cli \
+        php7.2-curl \
+        php7.2-fpm \
+        php7.2-gd \
+        php7.2-imagick \
+        php7.2-json \
+        php7.2-mbstring \
+        php7.2-mysqlnd \
+        php7.2-soap \
+        php7.2-xml \
+        php7.2-cli \
         strace \
         vim \
         openssh-server \

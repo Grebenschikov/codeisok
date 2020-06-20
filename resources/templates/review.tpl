@@ -1,5 +1,5 @@
 
-{include file="header.tpl"}
+{include file="header.twig.tpl"}
 
 <div class="page_nav">
     {include file='nav.tpl' commit=$head current='review'}

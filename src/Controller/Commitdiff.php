@@ -142,7 +142,6 @@ class Commitdiff extends DiffBase
         $this->loadReviewsLinks($co, implode('', $co->GetComment()));
 
         if (empty($this->params['sidebyside'])) {
-            include_once(\CodeIsOk\Util::AddSlash('.include/lib/syntaxhighlighter') . "syntaxhighlighter.php");
             $this->tpl->assign('sexy', 1);
             $this->tpl->assign('highlighter_no_ruler', 1);
             $this->tpl->assign('highlighter_diff_enabled', 1);
@@ -158,7 +157,7 @@ class Commitdiff extends DiffBase
                 $statuses[$filediff->GetStatus()] = $filediff->GetStatus();
                 $folders[$filediff->getToFileRootFolder()] = $filediff->getToFileRootFolder();
 
-                $SH = new \SyntaxHighlighter($filediff->GetToFile());
+                $SH = new \CodeIsOk\SyntaxHighlighter($filediff->GetToFile());
                 $brashes = array_merge($SH->getBrushesList(), $brashes);
                 $filediff->SetDecorationData(
                     [

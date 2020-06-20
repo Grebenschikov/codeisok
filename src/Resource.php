@@ -36,7 +36,7 @@ class Resource
 	 *
 	 * @access public
 	 * @static
-	 * @return \gettext_reader
+	 * @return \CodeIsOk\GetText\Reader
 	 */
 	public static function GetInstance()
 	{
@@ -222,12 +222,12 @@ class Resource
 
 		$reader = null;
 		if (!(($locale == 'en_US') || ($locale == 'en'))) {
-			$reader = new \FileReader(GITPHP_LOCALEDIR . $locale . '/gitphp.mo');
+			$reader = new \CodeIsOk\GetText\FileReader(GITPHP_LOCALEDIR . $locale . '/gitphp.mo');
 			if (!$reader)
 				return false;
 		}
 
-		self::$instance = new \gettext_reader($reader);
+		self::$instance = new \CodeIsOk\GetText\Reader($reader);
 		self::$currentLocale = $locale;
 		return true;
 	}

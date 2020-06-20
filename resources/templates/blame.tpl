@@ -5,7 +5,7 @@
  *
  * Copyright (C) 2010 Christopher Han <xiphux@gmail.com>
  *}
-{include file='header.tpl'}
+{include file='header.twig.tpl'}
 
  <div class="page_nav">
    {include file='nav.tpl' treecommit=$commit}

@@ -1108,6 +1108,20 @@ class Smarty
         $this->fetch($resource_name, $cache_id, $compile_id, true);
     }
 
+    private function loadFromTwigIfNeeded(string $template, bool $display = true)
+    {
+        if (substr($template, -9) === '.twig.tpl') {
+            $data = _twig($template, $this->_tpl_vars);
+            if ($display) {
+                echo $data;
+            }
+
+            return $data;
+        }
+
+        return null;
+    }
+
     /**
      * executes & returns or displays the template results
      *
@@ -1120,7 +1134,11 @@ class Smarty
     {
         $CountObject = new \CodeIsOk\CountClass($resource_name);
         static $_cache_info = array();
-        
+
+        if (($res = $this->loadFromTwigIfNeeded($resource_name, $display)) !== null) {
+            return $res;
+        }
+
         $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->error_reporting)
                ? $this->error_reporting : error_reporting() & ~E_NOTICE);
 
@@ -1860,6 +1878,10 @@ class Smarty
         }
 
         $this->_tpl_vars = array_merge($this->_tpl_vars, $params['smarty_include_vars']);
+
+        if (($res = $this->loadFromTwigIfNeeded($params['smarty_include_tpl_file'])) !== null) {
+            return $res;
+        }
 
         // config vars are treated as local, so push a copy of the
         // current ones onto the front of the stack

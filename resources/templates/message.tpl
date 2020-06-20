@@ -5,7 +5,7 @@
  *
  *  Copyright (C) 2009 Christopher Han <xiphux@gmail.com>
  *}
-{include file='header.tpl'}
+{include file='header.twig.tpl'}
 
 <div class="message {if $error}error{/if}">{$message}</div>
 

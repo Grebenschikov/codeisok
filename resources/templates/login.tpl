@@ -1,4 +1,4 @@
-{include file='header.tpl' no_user_header=1}
+{include file='header.twig.tpl' no_user_header=1}
 
 <form class="login-form-container" action="" method="POST">
     <div class="login-form {if $auth_error}has-error{/if}">

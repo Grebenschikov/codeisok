@@ -71,19 +71,6 @@ class Cache
 	}
 
 	/**
-	 * GetEnabled
-	 *
-	 * Gets whether the cache is enabled
-	 *
-	 * @access public
-	 * @return boolean true if enabled
-	 */
-	public function GetEnabled()
-	{
-		return $this->enabled;
-	}
-
-	/**
 	 * SetEnabled
 	 *
 	 * Sets whether the cache is enabled
@@ -156,26 +143,6 @@ class Cache
 	}
 
 	/**
-	 * Exists
-	 *
-	 * Tests if a key is cached
-	 *
-	 * @access public
-	 * @param string $key cache key
-	 * @return boolean true if cached, false otherwise
-	 */
-	public function Exists($key = null)
-	{
-		if (empty($key))
-			return false;
-
-		if (!$this->enabled)
-			return false;
-
-		return $this->tpl->is_cached(\CodeIsOk\Cache::Template, $key);
-	}
-
-	/**
 	 * Delete
 	 *
 	 * Delete an item from the cache
@@ -195,21 +162,6 @@ class Cache
 	}
 
 	/**
-	 * Clear
-	 *
-	 * Clear the cache
-	 *
-	 * @access public
-	 */
-	public function Clear()
-	{
-		if (!$this->enabled)
-			return;
-
-		$this->tpl->clear_all_cache();
-	}
-
-	/**
 	 * CreateSmarty
 	 *
 	 * Instantiates Smarty cache
@@ -221,7 +173,7 @@ class Cache
 		if ($this->tpl)
 			return;
 
-		$this->tpl = new Smarty;
+		$this->tpl = new \Smarty;
         $this->tpl->template_dir = GITPHP_TEMPLATESDIR;
 
 		$this->tpl->caching = 2;

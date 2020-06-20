@@ -1,4 +1,5 @@
 <?php
+namespace CodeIsOk\GetText;
 /*
    Copyright (c) 2003, 2009 Danilo Segan <danilo@kvota.net>.
    Copyright (c) 2005 Nico Kaiser <nico@siriux.net>
@@ -25,7 +26,7 @@
  * Provides a simple gettext replacement that works independently from
  * the system's gettext abilities.
  * It can read MO files and use them for translating strings.
- * The files are passed to gettext_reader as a Stream (see streams.php)
+ * The files are passed to gettext_reader as a Stream (see FileReader.php)
  *
  * This version has the ability to cache all strings and translations to
  * speed up the string lookup.
@@ -34,7 +35,7 @@
  * that you don't want to keep in memory)
  */
 
-class gettext_reader
+class Reader
 {
   //public:
     var $error = 0; // public variable that holds error code (0 if no error)
@@ -57,11 +58,11 @@ class gettext_reader
 
 
     /**
-   * Reads a 32bit Integer from the Stream
-   *
-   * @access private
-   * @return Integer from the Stream
-   */
+     * Reads a 32bit Integer from the Stream
+     *
+     * @access private
+     * @return Integer from the Stream
+     */
     function readint()
     {
         if ($this->BYTEORDER == 0) {
@@ -81,11 +82,11 @@ class gettext_reader
     }
 
     /**
-   * Reads an array of Integers from the Stream
-   *
-   * @param int count How many elements should be read
-   * @return Array of Integers
-   */
+     * Reads an array of Integers from the Stream
+     *
+     * @param int count How many elements should be read
+     * @return int[]
+     */
     function readintarray($count)
     {
         if ($this->BYTEORDER == 0) {
@@ -98,12 +99,12 @@ class gettext_reader
     }
 
     /**
-   * Constructor
-   *
-   * @param object Reader the StreamReader object
-   * @param boolean enable_cache Enable or disable caching of strings (default on)
-   */
-    function __construct($Reader, $enable_cache = true)
+     * Constructor
+     *
+     * @param object Reader the StreamReader object
+     * @param boolean enable_cache Enable or disable caching of strings (default on)
+     */
+    public function __construct($Reader, $enable_cache = true)
     {
     // If there isn't a StreamReader, turn on short circuit mode.
         if (!$Reader || isset($Reader->error)) {
@@ -143,7 +144,7 @@ class gettext_reader
    *
    * @access private
    */
-    function load_tables()
+    protected function load_tables()
     {
         if (is_array($this->cache_translations)
             && is_array($this->table_originals)
@@ -179,7 +180,7 @@ class gettext_reader
    * @param int num Offset number of original string
    * @return string Requested string if found, otherwise ''
    */
-    function get_original_string($num)
+    protected function get_original_string($num)
     {
         $length = $this->table_originals[$num * 2 + 1];
         $offset = $this->table_originals[$num * 2 + 2];
@@ -196,7 +197,7 @@ class gettext_reader
    * @param int num Offset number of original string
    * @return string Requested string if found, otherwise ''
    */
-    function get_translation_string($num)
+    protected function get_translation_string($num)
     {
         $length = $this->table_translations[$num * 2 + 1];
         $offset = $this->table_translations[$num * 2 + 2];
@@ -215,7 +216,7 @@ class gettext_reader
    * @param int end (internally used in recursive function)
    * @return int string number (offset in originals table)
    */
-    function find_string($string, $start = -1, $end = -1)
+    protected function find_string($string, $start = -1, $end = -1)
     {
         if (($start == -1) or ($end == -1)) {
       // find_string is called with only one parameter, set start end end
@@ -253,7 +254,7 @@ class gettext_reader
    * @param string string to be translated
    * @return string translated string (or original, if not found)
    */
-    function translate($string)
+    public function translate($string)
     {
         if ($this->short_circuit) return $string;
         $this->load_tables();
@@ -271,12 +272,13 @@ class gettext_reader
     }
 
     /**
-   * Sanitize plural form expression for use in PHP eval call.
-   *
-   * @access private
-   * @return string sanitized plural form expression
-   */
-    function sanitize_plural_expression($expr)
+     * Sanitize plural form expression for use in PHP eval call.
+     *
+     * @access private
+     * @param $expr
+     * @return string sanitized plural form expression
+     */
+    protected function sanitize_plural_expression($expr)
     {
     // Get rid of disallowed characters.
         $expr = preg_replace('@[^a-zA-Z0-9_:;\(\)\?\|\&=!<>+*/\%-]@', '', $expr);
@@ -310,12 +312,13 @@ class gettext_reader
     }
 
     /**
-   * Parse full PO header and extract only plural forms line.
-   *
-   * @access private
-   * @return string verbatim plural form header field
-   */
-    function extract_plural_forms_header_from_po_header($header)
+     * Parse full PO header and extract only plural forms line.
+     *
+     * @access private
+     * @param $header
+     * @return string verbatim plural form header field
+     */
+    protected function extract_plural_forms_header_from_po_header($header)
     {
         if (preg_match("/(^|\n)plural-forms: ([^\n]*)\n/i", $header, $regs)) $expr = $regs[2];
         else $expr = "nplurals=2; plural=n == 1 ? 0 : 1;";
@@ -328,7 +331,7 @@ class gettext_reader
    * @access private
    * @return string plural form header
    */
-    function get_plural_forms()
+    protected function get_plural_forms()
     {
     // lets assume message number 0 is header
     // this is true, right?
@@ -351,10 +354,10 @@ class gettext_reader
    * Detects which plural form to take
    *
    * @access private
-   * @param n count
+   * @param int $n count
    * @return int array index of the right plural form
    */
-    function select_string($n)
+    protected function select_string($n)
     {
         $string = $this->get_plural_forms();
         $string = str_replace('nplurals', "\$total", $string);
@@ -376,9 +379,9 @@ class gettext_reader
    * @param string single
    * @param string plural
    * @param string number
-   * @return translated plural form
+   * @return string translated plural form
    */
-    function ngettext($single, $plural, $number)
+    public function ngettext($single, $plural, $number)
     {
         if ($this->short_circuit) {
             if ($number != 1) return $plural;
@@ -409,17 +412,5 @@ class gettext_reader
                 return $list[$select];
             }
         }
-    }
-
-    function pgettext($context, $msgid)
-    {
-        $key = $context . chr(4) . $msgid;
-        return $this->translate($key);
-    }
-
-    function npgettext($context, $singular, $plural, $number)
-    {
-        $singular = $context . chr(4) . $singular;
-        return $this->ngettext($singular, $plural, $number);
     }
 }

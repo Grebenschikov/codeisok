@@ -1,20 +1,37 @@
 <?php
-define('GITPHP_BASEDIR', __DIR__ . '/../');
-define('GITPHP_CONFIGDIR', GITPHP_BASEDIR . '.config/');
-define('GITPHP_INCLUDEDIR', GITPHP_BASEDIR . '.include/');
-define('GITPHP_GITOBJECTDIR', GITPHP_INCLUDEDIR . 'git/');
-define('GITPHP_CONTROLLERDIR', GITPHP_INCLUDEDIR . 'controller/');
-define('\CodeIsOk\CacheDIR', GITPHP_INCLUDEDIR . 'cache/');
-define('GITPHP_LOCALEDIR', GITPHP_BASEDIR . 'resources/locale/');
-define('GITPHP_TEMPLATESDIR', GITPHP_BASEDIR . 'resources/templates/');
-define('GITPHP_CSSDIR', GITPHP_BASEDIR . 'public/css/');
-define('GITPHP_JSDIR', GITPHP_BASEDIR . 'public/js/');
-define('GITPHP_LIBDIR', GITPHP_BASEDIR . 'public/lib/');
+const GITPHP_BASEDIR = __DIR__ . '/../';
+const GITPHP_CONFIGDIR = GITPHP_BASEDIR . '.config/';
+const GITPHP_INCLUDEDIR = GITPHP_BASEDIR . '.include/';
+const GITPHP_LOCALEDIR = GITPHP_BASEDIR . 'resources/locale/';
+const GITPHP_TEMPLATESDIR = GITPHP_BASEDIR . 'resources/templates/';
+const GITPHP_CSSDIR = GITPHP_BASEDIR . 'public/css/';
+const GITPHP_JSDIR = GITPHP_BASEDIR . 'public/js/';
+const GITPHP_LIBDIR = GITPHP_BASEDIR . 'public/lib/';
 
-define('GITPHP_BASE_NS', 'GitPHP');
+include_once (__DIR__ . '/../.include/smartyplugins/block.t.php');
 
-require_once(GITPHP_BASEDIR . '/.include/lib/php-gettext/streams.php');
-require_once(GITPHP_BASEDIR . '/.include/lib/php-gettext/gettext.php');
+function _twig(string $template, array $params = []) : string {
+    /** @var \Twig\Environment $Twig */
+    static $Twig;
+    if (is_null($Twig)) {
+        $Loader = new \Twig\Loader\FilesystemLoader(GITPHP_TEMPLATESDIR);
+        $Twig = new \Twig\Environment($Loader, [
+            'cache' => false,
+            'debug' => true,
+            'strict_variables' => true
+        ]);
+
+        $Twig->addTokenParser(new \CodeIsOk\Twig\TranslateTagTokenParser());
+    }
+
+    return $Twig->render($template, $params);
+}
+
+
+/**
+ * Cache key for the cache contents / age map array
+ */
+const MEMCACHE_OBJECT_MAP = 'memcache_objectmap';
 
 /**
  * Gettext wrapper function for readability, single string
@@ -68,11 +85,6 @@ if (!function_exists('mb_orig_strpos')) {
         return strpos($haystack, $needle, $offset);
     }
 }
-
-/**
- * Cache key for the cache contents / age map array
- */
-define('MEMCACHE_OBJECT_MAP', 'memcache_objectmap');
 
 /**
  * memcache cache handler function

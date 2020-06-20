@@ -56,7 +56,7 @@ abstract class Base implements ControllerInterface
     public function __construct()
     {
         \CodeIsOk\Log::GetInstance()->timerStart();
-        require_once(\CodeIsOk\Util::AddSlash(\CodeIsOk\Config::GetInstance()->GetValue('smarty_prefix', '.include/lib/smarty/libs/')) . 'Smarty.class.php');
+        require_once('.include/lib/smarty/libs/Smarty.class.php');
         \CodeIsOk\Log::GetInstance()->timerStop('require Smarty.class.php');
         $this->tpl = new \Smarty;
         $this->tpl->plugins_dir[] = GITPHP_INCLUDEDIR . 'smartyplugins';
@@ -322,7 +322,7 @@ abstract class Base implements ControllerInterface
         $this->tpl->assign('Session', $this->Session);
         $this->tpl->assign('User', $this->Session->getUser());
 
-        /* header.tpl */
+        /* header.twig.tpl */
         $this->tpl->assign('user_name', $this->Session->getUser()->getName());
         $this->tpl->assign('is_gitosis_admin', $this->Session->getUser()->isGitosisAdmin());
         $this->tpl->assign('url_gitosis', \CodeIsOk\Application::getUrl('gitosis'));

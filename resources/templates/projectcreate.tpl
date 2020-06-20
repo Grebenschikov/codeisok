@@ -1,4 +1,4 @@
-{include file='header.tpl'}
+{include file='header.twig.tpl'}
 
 <div class="title">
    <strong>Create new repository</strong>

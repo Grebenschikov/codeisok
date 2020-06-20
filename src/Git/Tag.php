@@ -309,7 +309,7 @@ class Tag extends \CodeIsOk\Git\Ref
             $args = array();
             $args[] = '-t';
             $args[] = $this->GetHash();
-            $ret = trim($exe->Execute(GIT_CAT_FILE, $args));
+            $ret = trim($exe->Execute(GitExe::GIT_CAT_FILE, $args));
         } else {
             $ret = $external_type;
         }
@@ -329,7 +329,7 @@ class Tag extends \CodeIsOk\Git\Ref
             $args = array();
             $args[] = 'tag';
             $args[] = $this->GetName();
-            $ret = $exe->Execute(GIT_CAT_FILE, $args);
+            $ret = $exe->Execute(GitExe::GIT_CAT_FILE, $args);
             unset($exe);
         } else {
             $ret = $external_contents;
@@ -381,7 +381,7 @@ class Tag extends \CodeIsOk\Git\Ref
                 $args = array();
                 $args[] = 'tag';
                 $args[] = $objectHash;
-                $ret = $exe->Execute(GIT_CAT_FILE, $args);
+                $ret = $exe->Execute(GitExe::GIT_CAT_FILE, $args);
                 unset($exe);
                 $lines = explode("\n", $ret);
                 foreach ($lines as $i => $line) {
@@ -413,7 +413,7 @@ class Tag extends \CodeIsOk\Git\Ref
         $args[] = '--tags';
         $args[] = '--dereference';
         $args[] = $this->refName;
-        $ret = $exe->Execute(GIT_SHOW_REF, $args);
+        $ret = $exe->Execute(GitExe::GIT_SHOW_REF, $args);
         unset($exe);
 
         $lines = explode("\n", $ret);

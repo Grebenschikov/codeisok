@@ -5,7 +5,7 @@
  *
  *  Copyright (C) 2009 Christopher Han <xiphux@gmail.com>
  *}
-{include file='header.tpl'}
+{include file='header.twig.tpl'}
 
 <div class="projectSearch">
     <form method="post" action="index.php" id="projectSearchForm"

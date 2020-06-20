@@ -12,25 +12,6 @@ namespace CodeIsOk\Controller;
  * @subpackage Controller
  */
 
-
-/**
- * Constants for diff modes
- */
-define('GITPHP_DIFF_UNIFIED', '1');
-define('GITPHP_DIFF_SIDEBYSIDE', '2');
-
-/**
- * Constant of the diff mode cookie in the user's browser
- */
-define('GITPHP_DIFF_MODE_COOKIE', 'GitPHPDiffMode');
-define('GITPHP_TREEDIFF_ENABLED_COOKIE', 'GitPHPTreeDiffEnabled');
-
-/**
- * Diff mode cookie lifetime
- */
-define('GITPHP_DIFF_MODE_COOKIE_LIFETIME', 60 * 60 * 24 * 365);           // 1 year
-define('GITPHP_TREEDIFF_ENABLED_COOKIE_LIFETIME', 60 * 60 * 24 * 365);           // 1 year
-
 /**
  * DiffBase controller class
  *
@@ -39,6 +20,25 @@ define('GITPHP_TREEDIFF_ENABLED_COOKIE_LIFETIME', 60 * 60 * 24 * 365);          
  */
 abstract class DiffBase extends Base
 {
+    /**
+     * Constants for diff modes
+     */
+    const MODE_DIFF_UNIFIED = '1';
+    const MODE_DIFF_SIDEBYSIDE = '2';
+
+    /**
+     * Constant of the diff mode cookie in the user's browser
+     */
+    const DIFF_MODE_COOKIE = 'GitPHPDiffMode';
+    const TREEDIFF_ENABLED_COOKIE = 'GitPHPTreeDiffEnabled';
+
+    /**
+     * Diff mode cookie lifetime
+     */
+    const DIFF_MODE_COOKIE_LIFETIME = 60 * 60 * 24 * 365; // 1 year
+    const TREEDIFF_ENABLED_COOKIE_LIFETIME = 60 * 60 * 24 * 365; // 1 year
+
+
     /**
      * ReadQuery
      *
@@ -77,18 +77,18 @@ abstract class DiffBase extends Base
         /*
     	 * Check cookie
     	 */
-        if (!empty($_COOKIE[GITPHP_TREEDIFF_ENABLED_COOKIE])) {
-            $enabled = $_COOKIE[GITPHP_TREEDIFF_ENABLED_COOKIE] === '1';
+        if (!empty($_COOKIE[self::TREEDIFF_ENABLED_COOKIE])) {
+            $enabled = $_COOKIE[self::TREEDIFF_ENABLED_COOKIE] === '1';
         } else {
             /*
     		 * Create cookie to prevent browser delay
     		 */
-            setcookie(GITPHP_TREEDIFF_ENABLED_COOKIE, $enabled ? '1' : '0', time() + GITPHP_TREEDIFF_ENABLED_COOKIE_LIFETIME);
+            setcookie(self::TREEDIFF_ENABLED_COOKIE, $enabled ? '1' : '0', time() + self::TREEDIFF_ENABLED_COOKIE_LIFETIME);
         }
 
         if ($overrideMode !== null) {
             $enabled = $overrideMode === '1';
-            setcookie(GITPHP_TREEDIFF_ENABLED_COOKIE, $overrideMode, time() + GITPHP_TREEDIFF_ENABLED_COOKIE_LIFETIME);
+            setcookie(self::TREEDIFF_ENABLED_COOKIE, $overrideMode, time() + self::TREEDIFF_ENABLED_COOKIE_LIFETIME);
         }
 
         return $enabled;
@@ -105,18 +105,18 @@ abstract class DiffBase extends Base
      */
     protected function DiffMode($overrideMode = '')
     {
-        $mode = GITPHP_DIFF_UNIFIED;    // default
+        $mode = self::MODE_DIFF_UNIFIED;    // default
 
         /*
     	 * Check cookie
     	 */
-        if (!empty($_COOKIE[GITPHP_DIFF_MODE_COOKIE])) {
-            $mode = $_COOKIE[GITPHP_DIFF_MODE_COOKIE];
+        if (!empty($_COOKIE[self::DIFF_MODE_COOKIE])) {
+            $mode = $_COOKIE[self::DIFF_MODE_COOKIE];
         } else {
             /*
     		 * Create cookie to prevent browser delay
     		 */
-            setcookie(GITPHP_DIFF_MODE_COOKIE, $mode, time() + GITPHP_DIFF_MODE_COOKIE_LIFETIME);
+            setcookie(self::DIFF_MODE_COOKIE, $mode, time() + self::DIFF_MODE_COOKIE_LIFETIME);
         }
 
         if (!empty($overrideMode)) {
@@ -124,11 +124,11 @@ abstract class DiffBase extends Base
     		 * User is choosing a new mode
     		 */
             if ($overrideMode == 'sidebyside') {
-                $mode = GITPHP_DIFF_SIDEBYSIDE;
-                setcookie(GITPHP_DIFF_MODE_COOKIE, GITPHP_DIFF_SIDEBYSIDE, time() + GITPHP_DIFF_MODE_COOKIE_LIFETIME);
+                $mode = self::MODE_DIFF_SIDEBYSIDE;
+                setcookie(self::DIFF_MODE_COOKIE, self::MODE_DIFF_SIDEBYSIDE, time() + self::DIFF_MODE_COOKIE_LIFETIME);
             }  else {
-                $mode = GITPHP_DIFF_UNIFIED;
-                setcookie(GITPHP_DIFF_MODE_COOKIE, GITPHP_DIFF_UNIFIED, time() + GITPHP_DIFF_MODE_COOKIE_LIFETIME);
+                $mode = self::MODE_DIFF_UNIFIED;
+                setcookie(self::DIFF_MODE_COOKIE, self::MODE_DIFF_UNIFIED, time() + self::DIFF_MODE_COOKIE_LIFETIME);
             }
         }
 

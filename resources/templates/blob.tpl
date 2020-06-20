@@ -5,7 +5,7 @@
  *
  *  Copyright (C) 2009 Christopher Han <xiphux@gmail.com>
  *}
-{include file='header.tpl'}
+{include file='header.twig.tpl'}
 <input type="hidden" id="review_hash_head" value="{$blob->GetHash()}" />
 <input type="hidden" id="review_hash_base" value="blob" />
 <input type="hidden" id="review_file" value="{$blob->getPath()}" />

@@ -319,7 +319,6 @@ class Tag extends \CodeIsOk\Git\Ref
             $this->object = $this->GetProject()->GetCommit($this->GetHash());
             $this->commit = $this->object;
             $this->type = 'commit';
-            \CodeIsOk\Cache::GetInstance()->Set($this->GetCacheKey(), $this);
             return;
         }
 
@@ -395,8 +394,6 @@ class Tag extends \CodeIsOk\Git\Ref
                 }
                 break;
         }
-
-        \CodeIsOk\Cache::GetInstance()->Set($this->GetCacheKey(), $this);
     }
 
     /**
@@ -424,8 +421,6 @@ class Tag extends \CodeIsOk\Git\Ref
                 return;
             }
         }
-
-        \CodeIsOk\Cache::GetInstance()->Set($this->GetCacheKey(), $this);
     }
 
     /**

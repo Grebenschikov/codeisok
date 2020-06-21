@@ -132,8 +132,6 @@ class Blob extends \CodeIsOk\Git\FilesystemObject
             $args[] = $this->hash;
 
             $this->data = $exe->Execute(GitExe::GIT_CAT_FILE, $args);
-
-            \CodeIsOk\Cache::GetInstance()->Set($this->GetCacheKey(), $this);
         }
     }
 

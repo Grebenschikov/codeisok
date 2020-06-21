@@ -55,29 +55,7 @@ abstract class Base implements ControllerInterface
      */
     public function __construct()
     {
-        \CodeIsOk\Log::GetInstance()->timerStart();
-        require_once('.include/lib/smarty/libs/Smarty.class.php');
-        \CodeIsOk\Log::GetInstance()->timerStop('require Smarty.class.php');
-        $this->tpl = new \Smarty;
-        $this->tpl->plugins_dir[] = GITPHP_INCLUDEDIR . 'smartyplugins';
-        $this->tpl->template_dir = GITPHP_TEMPLATESDIR;
-
-        if (\CodeIsOk\Config::GetInstance()->GetValue('debug', false)) {
-            $this->tpl->error_reporting = E_ALL;
-        }
-
-        if (\CodeIsOk\Config::GetInstance()->GetValue('cache', false)) {
-            $this->tpl->caching = 2;
-            if (\CodeIsOk\Config::GetInstance()->HasKey('cachelifetime')) {
-                $this->tpl->cache_lifetime = \CodeIsOk\Config::GetInstance()->GetValue('cachelifetime');
-            }
-
-            $servers = \CodeIsOk\Config::GetInstance()->GetValue('memcache', null);
-            if (isset($servers) && is_array($servers) && (count($servers) > 0)) {
-                \CodeIsOk\Memcache::GetInstance()->AddServers($servers);
-                $this->tpl->cache_handler_func = 'memcache_cache_handler';
-            }
-        }
+        $this->tpl = new \CodeIsOk\ViewContainer();
 
         if (isset($_GET['p'])) {
             $this->project = \CodeIsOk\Git\ProjectList::GetInstance()->GetProject(str_replace(chr(0), '', $_GET['p']));

@@ -147,7 +147,6 @@ class Tree extends \CodeIsOk\Git\FilesystemObject
             }
         }
         $this->contents = array_merge($contents['t'], $contents['b']);
-        \CodeIsOk\Cache::GetInstance()->Set($this->GetCacheKey(), $this);
     }
 
     /**

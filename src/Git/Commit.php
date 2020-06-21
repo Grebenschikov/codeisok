@@ -525,8 +525,6 @@ class Commit extends \CodeIsOk\Git\GitObject
                 }
             }
         }
-
-        \CodeIsOk\Cache::GetInstance()->Set($this->GetCacheKey(), $this);
     }
 
     /**
@@ -618,8 +616,6 @@ class Commit extends \CodeIsOk\Git\GitObject
                 }
             }
         }
-
-        \CodeIsOk\Cache::GetInstance()->Set($this->GetCacheKey(), $this);
     }
 
     /**
@@ -699,8 +695,6 @@ class Commit extends \CodeIsOk\Git\GitObject
                 }
             }
         }
-
-        \CodeIsOk\Cache::GetInstance()->Set($this->GetCacheKey(), $this);
     }
 
     /**
@@ -926,24 +920,6 @@ class Commit extends \CodeIsOk\Git\GitObject
             'parentsReferenced', 'treeReferenced'
         );
         return array_merge($properties, parent::__sleep());
-    }
-
-    /**
-     * GetCacheKey
-     *
-     * Gets the cache key to use for this object
-     *
-     * @access public
-     * @return string cache key
-     */
-    public function GetCacheKey()
-    {
-        $key = parent::GetCacheKey();
-        if (!empty($key)) $key .= '|';
-
-        $key .= 'commit|' . $this->hash;
-
-        return $key;
     }
 
     public function getReviews()

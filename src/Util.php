@@ -172,7 +172,7 @@ class Util
         } elseif ($format == 'redmine') {
             $template = 'review.redmine.twig.tpl';
         }
-        $View = new \Smarty;
+        $View = new \CodeIsOk\ViewContainer;
         $View->plugins_dir[] = GITPHP_INCLUDEDIR . 'smartyplugins';
         $View->template_dir = GITPHP_TEMPLATESDIR;
 

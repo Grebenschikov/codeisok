@@ -652,13 +652,7 @@ class Project
 
         if (preg_match('/[0-9a-f]{40}/i', $hash)) {
             if (!isset($this->commitCache[$hash])) {
-                $cacheKey = 'project|' . $this->project . '|commit|' . $hash;
-                $cached = \CodeIsOk\Cache::GetInstance()->Get($cacheKey);
-                if ($cached) {
-                    $this->commitCache[$hash] = $cached;
-                } else {
-                    $this->commitCache[$hash] = new \CodeIsOk\Git\Commit($this, $hash);
-                }
+                $this->commitCache[$hash] = new \CodeIsOk\Git\Commit($this, $hash);
             }
 
             return $this->commitCache[$hash];
@@ -982,13 +976,7 @@ class Project
             return null;
         }
 
-        $cacheKey = 'project|' . $this->project . '|tag|' . $tag;
-        $cached = \CodeIsOk\Cache::GetInstance()->Get($cacheKey);
-        if ($cached) {
-            return $cached;
-        } else {
-            return new \CodeIsOk\Git\Tag($this, $tag, $hash);
-        }
+        return new \CodeIsOk\Git\Tag($this, $tag, $hash);
     }
 
     /**
@@ -1245,10 +1233,6 @@ class Project
     {
         if (empty($hash)) return null;
 
-        $cacheKey = 'project|' . $this->project . '|blob|' . $hash;
-        $cached = \CodeIsOk\Cache::GetInstance()->Get($cacheKey);
-        if ($cached) return $cached;
-
         return new \CodeIsOk\Git\Blob($this, $hash);
     }
 
@@ -1265,10 +1249,6 @@ class Project
     public function GetTree($hash)
     {
         if (empty($hash)) return null;
-
-        $cacheKey = 'project|' . $this->project . '|tree|' . $hash;
-        $cached = \CodeIsOk\Cache::GetInstance()->Get($cacheKey);
-        if ($cached) return $cached;
 
         return new \CodeIsOk\Git\Tree($this, $hash);
     }

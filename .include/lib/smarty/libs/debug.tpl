@@ -139,7 +139,7 @@ td {
 </html>
 {/capture}
 {if isset($_smarty_debug_output) and $_smarty_debug_output eq "html"}
-    {$debug_output}
+    {{ debug_output }}
 {else}
 <script type="text/javascript">
 // <![CDATA[

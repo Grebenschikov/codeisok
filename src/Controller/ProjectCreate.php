@@ -38,7 +38,7 @@ class ProjectCreate extends Base
      */
     protected function GetTemplate()
     {
-        return 'projectcreate.tpl';
+        return 'projectcreate.twig.tpl';
     }
 
     /**

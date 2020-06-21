@@ -1,19 +1,8 @@
-{*
- * filediffsidebyside
- *
- * File diff with side-by-side changes template
- *
- * @author Christopher Han <xiphux@gmail.com>
- * @author Mattias Ulbrich
- * @copyright Copyright (c) 2010 Christopher Han
- * @package GitPHP
- * @subpackage Template
- *}
- <script src="/js/sbs_review.js?v={$jsversion}"></script>
+<script src="/js/sbs_review.js?v={{ jsversion }}"></script>
 
-{if !$noCompareBlock}
+{% if not(noCompareBlock is defined) or not(noCompareBlock) %}
     <div id="compare" class="SBSComparison"></div>
-{/if}
+{% endif %}
 
  <script>
  var id = '';
@@ -21,7 +10,6 @@
  var compare = $('#compare');
  var review;
  var reviewCache = new Object();
- {literal}
 
  $(document).delegate('.SBSTOC a', 'click', function (e) {
     e.preventDefault();
@@ -70,9 +58,7 @@
     function request(mode) {
         $.ajax({
             type: 'GET', async: true, dataType: 'text',
-            {/literal}
-            url: '{$SCRIPT_NAME}?p={$project->GetProject()|urlencode}&a=blob_plain&h=' + modes[mode].hash + '&f=' + modes[mode].file,
-                {literal}
+            url: '{{ SCRIPT_NAME }}?p={{ project.GetProject()|url_encode }}&a=blob_plain&h=' + modes[mode].hash + '&f=' + modes[mode].file,
             success: function (response, textStatus, request) {
                 content_type = request.getResponseHeader('Content-Type');
                 if (content_type.indexOf("text") === -1 && content_type.indexOf("xml") === -1) {
@@ -127,14 +113,9 @@
         cmsettings: { readOnly: 'nocursor', lineNumbers: true, viewportMargin: Infinity },
         editor_width: '40%',
         editor_height: window.sbsTreeDiff ? editorHeight : `${window.innerHeight - 150}px`,
-
- {/literal}
- {if $ignorewhitespace}
- {literal}
-    ignorews: true
- {/literal}
- {/if}
- {literal}
+        {% if ignorewhitespace %}
+            ignorews: true
+        {% endif %}
     });
  });
 
@@ -143,40 +124,3 @@
  });
 
  </script>
- {/literal}
-{*
-<table class="diffTable">
-  {if $filediff->GetStatus() == 'D'}
-    {assign var=delblob value=$filediff->GetFromBlob()}
-    {foreach from=$delblob->GetData(true) item=blobline}
-      <tr class="diff-deleted">
-        <td class="diff-left">{$blobline|escape}</td>
-	<td>&nbsp;</td>
-      </tr>
-    {/foreach}
-  {elseif $filediff->GetStatus() == 'A'}
-    {assign var=newblob value=$filediff->GetToBlob()}
-    {foreach from=$newblob->GetData(true) item=blobline}
-      <tr class="diff-added">
-        <td class="diff-left">&nbsp;</td>
-	<td>{$blobline|escape}</td>
-      </tr>
-    {/foreach}
-  {else}
-    {foreach from=$diffsplit item=lineinfo}
-      {if $lineinfo[0]=='added'}
-      <tr class="diff-added">
-      {elseif $lineinfo[0]=='deleted'}
-      <tr class="diff-deleted">
-      {elseif $lineinfo[0]=='modified'}
-      <tr class="diff-modified">
-      {else}
-      <tr>
-      {/if}
-        <td class="diff-left">{if $lineinfo[1]}{$lineinfo[1]|escape}{else}&nbsp;{/if}</td>
-        <td>{if $lineinfo[2]}{$lineinfo[2]|escape}{else}&nbsp;{/if}</td>
-      </tr>
-    {/foreach}
-  {/if}
-</table>
-*}

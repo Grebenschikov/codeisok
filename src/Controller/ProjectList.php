@@ -14,11 +14,11 @@ class ProjectList extends Base
     protected function GetTemplate()
     {
         if (isset($this->params['opml']) && ($this->params['opml'] === true)) {
-            return 'opml.tpl';
+            return 'opml.twig.tpl';
         } else if (isset($this->params['txt']) && ($this->params['txt'] === true)) {
-            return 'projectindex.tpl';
+            return 'projectindex.twig.tpl';
         }
-        return 'projectlist.tpl';
+        return 'projectlist.twig.tpl';
     }
 
     /**

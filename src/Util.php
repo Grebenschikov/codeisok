@@ -166,11 +166,11 @@ class Util
                 $vars_data['DIFF_OBJS'][] = self::insertCommentsToDiffObj($comments, $file, $Diff);
             }
         }
-        $template = 'review.mail.tpl';
+        $template = 'review.mail.twig.tpl';
         if ($format == 'jira') {
-            $template = 'review.jira.tpl';
+            $template = 'review.jira.twig.tpl';
         } elseif ($format == 'redmine') {
-            $template = 'review.redmine.tpl';
+            $template = 'review.redmine.twig.tpl';
         }
         $View = new \Smarty;
         $View->plugins_dir[] = GITPHP_INCLUDEDIR . 'smartyplugins';
@@ -188,7 +188,7 @@ class Util
         return $diff;
     }
 
-    protected static function getDiffCached($hash, \DiffContext $DiffContext, \CodeIsOk\Git\Project $Project, &$changes_authors)
+    protected static function getDiffCached($hash, \CodeIsOk\DiffContext $DiffContext, \CodeIsOk\Git\Project $Project, &$changes_authors)
     {
         static $diffs = [];
 

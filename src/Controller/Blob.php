@@ -49,7 +49,7 @@ class Blob extends Base
     protected function GetTemplate()
     {
         if (isset($this->params['plain']) && $this->params['plain']) return 'blobplain.twig.tpl';
-        return 'blob.tpl';
+        return 'blob.twig.tpl';
     }
 
     /**

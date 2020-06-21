@@ -36,9 +36,9 @@ class Feed extends Base
     protected function GetTemplate()
     {
         if ($this->params['format'] == self::FEED_FORMAT_RSS) {
-            return 'rss.tpl';
+            return 'rss.twig.tpl';
         } else if ($this->params['format'] == self::FEED_FORMAT_ATOM) {
-            return 'atom.tpl';
+            return 'atom.twig.tpl';
         } else {
             return null;
         }

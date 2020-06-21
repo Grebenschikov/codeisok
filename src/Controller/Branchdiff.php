@@ -24,7 +24,7 @@ class Branchdiff extends DiffBase
         if (isset($this->params['plain']) && ($this->params['plain'] === true)) {
             return 'branchdiffplain.twig.tpl';
         }
-        return 'branchdiff.tpl';
+        return 'branchdiff.twig.tpl';
     }
 
     /**

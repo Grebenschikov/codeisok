@@ -21,7 +21,7 @@ class Project extends Base
      */
     protected function GetTemplate()
     {
-        return 'project.tpl';
+        return 'project.twig.tpl';
     }
 
     /**

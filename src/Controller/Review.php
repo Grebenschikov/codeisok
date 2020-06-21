@@ -13,7 +13,7 @@ class Review extends Base
      */
     protected function GetTemplate()
     {
-        return 'review.tpl';
+        return 'review.twig.tpl';
     }
 
     /**

@@ -1,5 +1,5 @@
 {% set diff = filediff.GetDiff(file, false) %}
-{% if escape}
+{% if escape %}
     {{ diff|escape }}
 {% else %}
     {{ diff }}

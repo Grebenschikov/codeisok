@@ -22,9 +22,9 @@ class Commit extends Base
     protected function GetTemplate()
     {
         if (isset($this->params['jstip']) && $this->params['jstip']) {
-            return 'committip.tpl';
+            return 'committip.twig.tpl';
         }
-        return 'commit.tpl';
+        return 'commit.twig.tpl';
     }
 
     /**

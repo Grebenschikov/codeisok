@@ -11,11 +11,11 @@ Title: {#title#|capitalize}
 
 The current date and time is {$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}
 
-The value of global assigned variable $SCRIPT_NAME is {$SCRIPT_NAME}
+The value of global assigned variable $SCRIPT_NAME is {{ SCRIPT_NAME }}
 
-Example of accessing server environment variable SERVER_NAME: {$smarty.server.SERVER_NAME}
+Example of accessing server environment variable SERVER_NAME: {{ smarty.server.SERVER_NAME }}
 
-The value of {ldelim}$Name{rdelim} is <b>{$Name}</b>
+The value of {ldelim}$Name{rdelim} is <b>{{ Name }}</b>
 
 variable modifier example of {ldelim}$Name|upper{rdelim}
 
@@ -26,9 +26,9 @@ An example of a section loop:
 
 {section name=outer loop=$FirstName}
 {if $smarty.section.outer.index is odd by 2}
-	{$smarty.section.outer.rownum} . {$FirstName[outer]} {$LastName[outer]}
+	{{ smarty.section.outer.rownum }} . {$FirstName[outer]} {$LastName[outer]}
 {else}
-	{$smarty.section.outer.rownum} * {$FirstName[outer]} {$LastName[outer]}
+	{{ smarty.section.outer.rownum }} * {$FirstName[outer]} {$LastName[outer]}
 {/if}
 {sectionelse}
 	none
@@ -48,7 +48,7 @@ testing strip tags
 <table border=0>
 	<tr>
 		<td>
-			<A HREF="{$SCRIPT_NAME}">
+			<A HREF="{{ SCRIPT_NAME }}">
 			<font color="red">This is a  test     </font>
 			</A>
 		</td>

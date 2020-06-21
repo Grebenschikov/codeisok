@@ -24,7 +24,7 @@ class Blobdiff extends DiffBase
         if (isset($this->params['plain']) && ($this->params['plain'] === true)) {
             return 'blobdiffplain.twig.tpl';
         }
-        return 'blobdiff.tpl';
+        return 'blobdiff.twig.tpl';
     }
 
     /**

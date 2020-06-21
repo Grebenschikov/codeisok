@@ -24,7 +24,7 @@ class Tag extends Base
         if (isset($this->params['jstip']) && $this->params['jstip']) {
             return 'tagtip.twig.tpl';
         }
-        return 'tag.tpl';
+        return 'tag.twig.tpl';
     }
 
     /**

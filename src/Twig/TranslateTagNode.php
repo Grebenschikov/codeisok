@@ -24,7 +24,7 @@ class TranslateTagNode extends \Twig\Node\Node
 
         $compiler->write('echo smarty_block_t([');
         foreach ($this->params as $attr) {
-            $compiler->string($attr);
+            $compiler->string(strpos($attr, 'param') === 0 ? substr($attr, 5) : $attr);
             $compiler->write(' => ');
             $compiler->subcompile($this->getAttribute($attr));
             $compiler->write(',');

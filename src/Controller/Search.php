@@ -38,9 +38,9 @@ class Search extends Base
     protected function GetTemplate()
     {
         if ($this->params['searchtype'] == self::SEARCH_TYPE_FILE) {
-            return 'searchfiles.tpl';
+            return 'searchfiles.twig.tpl';
         }
-        return 'search.tpl';
+        return 'search.twig.tpl';
     }
 
     /**

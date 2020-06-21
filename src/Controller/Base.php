@@ -415,7 +415,7 @@ abstract class Base implements ControllerInterface
         $age = $this->project->GetAge();
 
         $this->tpl->clear_cache(null, $this->GetCacheKeyPrefix(), null, $age);
-        $this->tpl->clear_cache('projectlist.tpl', $this->GetCacheKeyPrefix(false), null, $age);
+        $this->tpl->clear_cache('projectlist.twig.tpl', $this->GetCacheKeyPrefix(false), null, $age);
     }
 
     protected function initSession()

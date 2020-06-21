@@ -24,7 +24,7 @@ class Blame extends Base
         if (isset($this->params['js']) && $this->params['js']) {
             return 'blamedata.twig.tpl';
         }
-        return 'blame.tpl';
+        return 'blame.twig.tpl';
     }
 
     /**

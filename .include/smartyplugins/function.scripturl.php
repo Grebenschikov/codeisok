@@ -13,11 +13,9 @@
 /**
  * scripturl smarty function
  *
- * @param array $params function parameters
- * @param mixed $smarty smarty object
  * @return string script url
  */
-function smarty_function_scripturl($params, &$smarty)
+function smarty_function_scripturl()
 {
 	if (\CodeIsOk\Config::GetInstance()->HasKey('self')) {
 		$selfurl = \CodeIsOk\Config::GetInstance()->GetValue('self');

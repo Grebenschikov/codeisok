@@ -20,7 +20,7 @@ class Message extends Base
      */
     protected function GetTemplate()
     {
-        return 'message.tpl';
+        return 'message.twig.tpl';
     }
 
     /**

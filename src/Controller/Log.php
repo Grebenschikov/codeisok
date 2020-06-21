@@ -23,9 +23,9 @@ class Log extends Base
     {
         if (isset($this->params['short']) && ($this->params['short'] === true)
             || isset($this->params['branchlog']) && ($this->params['branchlog'] === true)) {
-            return 'shortlog.tpl';
+            return 'shortlog.twig.tpl';
         }
-        return 'log.tpl';
+        return 'log.twig.tpl';
     }
 
     /**

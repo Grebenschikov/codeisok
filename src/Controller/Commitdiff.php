@@ -22,9 +22,9 @@ class Commitdiff extends DiffBase
     protected function GetTemplate()
     {
         if (isset($this->params['plain']) && ($this->params['plain'] === true)) {
-            return 'commitdiffplain.tpl';
+            return 'commitdiffplain.twig.tpl';
         }
-        return 'commitdiff.tpl';
+        return 'commitdiff.twig.tpl';
     }
 
     /**
